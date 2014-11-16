@@ -1,11 +1,11 @@
-#ifndef ORBITOBJECT_H_
-#define ORBITOBJECT_H_
+#ifndef PARTICLE_H_
+#define PARTICLE_H_
 
 
-class Orbit_Object {
+class Particle {
  public:
-  Orbit_Object(double mass, double radius, int dimen);
-  ~Orbit_Object();
+  Particle(double mass, double radius, int dimen);
+  ~Particle();
   double r[dimen];
   double v[dimen];
 
@@ -15,5 +15,5 @@ class Orbit_Object {
   const int    dimen_;
 };
 
-#endif  // ORBITOBJECT_H_
+#endif  // PARTICLE_H_
     
