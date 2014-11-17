@@ -1,11 +1,13 @@
-#ifndef ORBITOBJECT_H_
-#define ORBITOBJECT_H_
+#ifndef PARTICLE_H_
+#define PARTICLE_H_
 
 
-class Orbit_Object {
+class Particle {
  public:
-  Orbit_Object(double mass, double radius, int dimen, double *x_0, double *v_0);
-  ~Orbit_Object();
+  Particle(double mass, double radius, int dimen);
+  ~Particle();
+  double r[dimen];
+  double v[dimen];
 
  private:
   const double mass_; //defined this way, the mass and radius can't change, so cataclysmic collisions aren't possible as the code is written.
@@ -13,5 +15,5 @@ class Orbit_Object {
   const int    dimen_;
 };
 
-#endif  // ORBITOBJECT_H_
+#endif  // PARTICLE_H_
     
