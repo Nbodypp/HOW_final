@@ -1,3 +1,10 @@
+/**
+ * \file
+ *
+ * \brief Particle class
+ *
+ * Longer description goes here
+ */
 #include "particle.h"
 
 Particle::Particle(double mass, double radius, int dimen)
