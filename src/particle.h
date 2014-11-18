@@ -19,7 +19,7 @@ class Particle {
   double v[dimen];
 
  private:
-  const double mass_; //defined this way, the mass and radius can't change, so cataclysmic collisions aren't possible as the code is written.
+  const double mass_;
   const double radius_;
   const int    dimen_;
 };
