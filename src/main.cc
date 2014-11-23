@@ -1,50 +1,60 @@
-#include <stdlib.h>
+#include <iostream>
 #include <stdio.h>
-//#include "integrator.h"
-//#include "orbit_object.h"
+#include <stdlib.h>
+#include <vector>
+#include <string.h>
+#include "SimpleIni.h"
+#include "particle.h"
 
-
-void intro_message(char *name)
+void delete_particle(Particle* const ptr)
 {
-  printf("Usage: %s\n",name);
-  printf("\n");
-  exit(1);
+  delete ptr;
 }
-
 
 int main(int argc, char *argv[])
 {
-  //Just a thought, maybe we can the first lines of the input file define the number of objects and such, and then the rest of the lines define the properties of the objects
-  if(argc!=2)
+
+  // vector of pointers to Particle
+  std::vector<Particle *> particles;
+
+  CSimpleIniA ini;
+  ini.LoadFile("test.ini");
+  double tmpmass, tmpradius;
+
+  // TODO: verify required sections are there
+  // TODO: verify required keys are there
+  // get all sections
+  CSimpleIniA::TNamesDepend sections;
+  CSimpleIniA::TNamesDepend::const_iterator i;
+  ini.GetAllSections(sections);
+  for (i = sections.begin(); i != sections.end(); ++i)
+  {
+    if (strcmp(i->pItem, "settings") == 0)
     {
-      intromessage(argv[0]);
+      const double dt = atof(ini.GetValue("settings", "timestep"));
+      const double tmax = atof(ini.GetValue("settings", "tmax"));
+      const char * gravity = ini.GetValue("settings", "gravity");
+      continue;
     }
-  const int n_objects = 2; //This will be accessed from command line arguments or the input file somehow
+    std::cout << i->pItem << std::endl; 
+    tmpmass = atof(ini.GetValue(i->pItem, "mass"));
+    tmpradius = atof(ini.GetValue(i->pItem, "radius"));
+    particles.push_back(new Particle(tmpmass, tmpradius));
+  }
 
-  /*Initialize the objects that will be orbiting*/
-
-  for(int i=0; i<n_objects;i++)
-    {
-      //initialize an orbit_object class.
-      //How are we going to do set up different instances for each object?  We have to figure out some way to define an arbitrary number of names for each instance.
-    }
-
+  printf("     dt = %15.8f\n", dt);
+  printf("   tmax = %15.8e\n", tmax);
+  printf("gravity = %15s\n", gravity);
   
-  Integrator *integrator_struct;
+  Nparticles = particles.size();
+  printf("number of particles = %d\n", Nparticles);
+  for (int i = 0; i < Nparticles; ++i)
+  {
+    particles[i]->print();
+  }
 
-  integrator_struct=integrator_new(); //How to do this the OO way?
-
-  for(int i=0;i<n_steps;i++)
-    {
-      check = integrator_step()
-        if(check!=0)
-          {
-            printf("Failure on stepping for some reason.\n Now quitting...\n");
-            exit(-1);
-          }
-      printf("The values\n");
-    }
-
-  integrator_free(integrator_struct);
+  // free all memory
+  std::for_each(particles.begin(), particles.end(), delete_particle);
+  return 0;
 
 }
