@@ -3,6 +3,7 @@
  */
 #include "particle.h"
 #include <stdio.h>
+#include <math.h>
 
 Particle::Particle(double mass, double radius)
  : mass(mass),
@@ -17,10 +18,18 @@ Particle::Particle(double mass, double radius)
 Particle::~Particle()
 {}
 
+double Particle::operator-(const Particle& p)
+{
+  return sqrt(pow((p.x-this->x), 2) +
+              pow((p.y-this->y), 2) +
+              pow((p.z-this->z), 2));
+}
 
 void Particle::print()
 {
-  printf("%15.8f %15.8f %15.8f %15.8f %15.8f\n",
-         this->mass, this->radius, this->x, this->y, this->z);
+  printf("%8.4f %8.4f %8.4f %8.4f %8.4f %8.4f %8.4f %8.4f %8.4f\n",
+         this->x, this->y, this->z,
+         this->vx, this->vy, this->vz,
+         this->ax, this->ay, this->az);
 }
 

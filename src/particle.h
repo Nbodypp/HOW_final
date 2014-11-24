@@ -40,6 +40,11 @@ class Particle {
   double ay;  /**< acceleration y */
   double az;  /**< acceleration z */
 
+  /** - Operator
+   * @brief Calculates distance between two particles
+   */
+  double operator-(const Particle& p);
+
   void print();
 
  private:
