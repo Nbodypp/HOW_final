@@ -8,11 +8,17 @@
 #include "particle.h"
 
 
+typedef std::vector<std::unique_ptr<Particle>> Particles;
+
+void print_particles(Particles &particles) {
+  std::cout << particles.size() << std::endl;
+}
+
 int main(int argc, char *argv[])
 {
 
   // vector of pointers to Particle
-  std::vector<std::unique_ptr<Particle>> particles;
+  Particles particles;
 
   CSimpleIniA ini;
   ini.LoadFile("test.ini");
@@ -45,6 +51,7 @@ int main(int argc, char *argv[])
   
   const int Nparticles = particles.size();
   printf("number of particles = %d\n", Nparticles);
+  print_particles(particles);
   for (int i = 0; i < Nparticles; ++i)
   {
     particles[i]->print();
