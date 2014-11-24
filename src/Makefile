@@ -4,7 +4,7 @@ srcdir=$(projectdir)/src
 
 INCDIR=-Ivendor -Ivendor/simpleini
 LIBDIR=
-CFLAGS=-Wall -std=c++11 $(INCDIR) $(LIBDIR)
+CFLAGS=-Wall -std=c++0x $(INCDIR) $(LIBDIR)
 
 .PHONY: clean
 
