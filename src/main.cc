@@ -11,7 +11,28 @@
 typedef std::vector<std::unique_ptr<Particle>> Particles;
 
 void print_particles(Particles &particles) {
-  std::cout << particles.size() << std::endl;
+  std::cout << "number of particles = "<< particles.size() << std::endl;
+  for (auto i = particles.begin(); i < particles.end(); ++i) {
+    (*i)->print();
+  }
+}
+
+void update_accerelation(Particles &particles)
+{
+  for (int i = 0; i < particles.size(); ++i)
+  {
+    double ax = 0;
+    for (int j = 0; j < particles.size(); ++j)
+    {
+      if (j==i)
+      {
+        continue;
+      }
+      ax += particles[j]->mass / ((*particles[i])-(*particles[j]));
+    }
+    particles[i]->ax = ax;
+  }
+
 }
 
 int main(int argc, char *argv[])
@@ -39,26 +60,20 @@ int main(int argc, char *argv[])
     if (strcmp(i->pItem, "settings") == 0) {
       continue;
     }
-    std::cout << i->pItem << std::endl; 
+    std::cout << "Initializeing " << i->pItem << std::endl; 
     tmpmass = atof(ini.GetValue(i->pItem, "mass"));
     tmpradius = atof(ini.GetValue(i->pItem, "radius"));
     particles.push_back(std::unique_ptr<Particle>(new Particle(tmpmass, tmpradius)));
+    particles.back()->x = atof(ini.GetValue(i->pItem, "x"));
+    particles.back()->y = atof(ini.GetValue(i->pItem, "y"));
+    particles.back()->z = atof(ini.GetValue(i->pItem, "z"));
   }
 
-  printf("     dt = %15.8f\n", dt);
-  printf("   tmax = %15.8e\n", tmax);
-  std::cout << "gravity = " << gravity << std::endl;
   
-  const int Nparticles = particles.size();
-  printf("number of particles = %d\n", Nparticles);
   print_particles(particles);
-  for (int i = 0; i < Nparticles; ++i)
-  {
-    particles[i]->print();
-  }
+  update_accerelation(particles);
+  print_particles(particles);
 
-  // free all memory
-  // std::for_each(particles.begin(), particles.end(), delete_particle);
   return 0;
 
 }
