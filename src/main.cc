@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 #include <stdio.h>
 #include <stdlib.h>
 #include <vector>
@@ -6,10 +7,6 @@
 #include "SimpleIni.h"
 #include "particle.h"
 
-void delete_particle(Particle* const ptr)
-{
-  delete ptr;
-}
 
 int main(int argc, char *argv[])
 {
