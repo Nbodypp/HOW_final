@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 {
 
   // vector of pointers to Particle
-  std::vector<Particle *> particles;
+  std::vector<std::unique_ptr<Particle>> particles;
 
   CSimpleIniA ini;
   ini.LoadFile("test.ini");
@@ -39,7 +39,7 @@ int main(int argc, char *argv[])
     std::cout << i->pItem << std::endl; 
     tmpmass = atof(ini.GetValue(i->pItem, "mass"));
     tmpradius = atof(ini.GetValue(i->pItem, "radius"));
-    particles.push_back(new Particle(tmpmass, tmpradius));
+    particles.push_back(std::unique_ptr<Particle>(new Particle(tmpmass, tmpradius)));
   }
 
   printf("     dt = %15.8f\n", dt);
@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
   }
 
   // free all memory
-  std::for_each(particles.begin(), particles.end(), delete_particle);
+  // std::for_each(particles.begin(), particles.end(), delete_particle);
   return 0;
 
 }
