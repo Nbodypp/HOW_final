@@ -23,17 +23,17 @@ int main(int argc, char *argv[])
 
   // TODO: verify required sections are there
   // TODO: verify required keys are there
+  // get settings
+  const double dt = atof(ini.GetValue("settings", "timestep"));
+  const double tmax = atof(ini.GetValue("settings", "tmax"));
+  const std::string gravity = ini.GetValue("settings", "gravity");
   // get all sections
   CSimpleIniA::TNamesDepend sections;
   CSimpleIniA::TNamesDepend::const_iterator i;
   ini.GetAllSections(sections);
   for (i = sections.begin(); i != sections.end(); ++i)
   {
-    if (strcmp(i->pItem, "settings") == 0)
-    {
-      const double dt = atof(ini.GetValue("settings", "timestep"));
-      const double tmax = atof(ini.GetValue("settings", "tmax"));
-      const char * gravity = ini.GetValue("settings", "gravity");
+    if (strcmp(i->pItem, "settings") == 0) {
       continue;
     }
     std::cout << i->pItem << std::endl; 
@@ -44,9 +44,9 @@ int main(int argc, char *argv[])
 
   printf("     dt = %15.8f\n", dt);
   printf("   tmax = %15.8e\n", tmax);
-  printf("gravity = %15s\n", gravity);
+  std::cout << "gravity = " << gravity << std::endl;
   
-  Nparticles = particles.size();
+  const int Nparticles = particles.size();
   printf("number of particles = %d\n", Nparticles);
   for (int i = 0; i < Nparticles; ++i)
   {
