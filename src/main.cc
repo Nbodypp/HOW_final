@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <vector>
+#include <typeinfo>
 #include <string.h>
 #include "SimpleIni.h"
 #include "particle.h"
@@ -48,9 +49,19 @@ int main(int argc, char *argv[])
   // TODO: verify required sections are there
   // TODO: verify required keys are there
   // get settings
+  const CSimpleIniA::TKeyVal *settings;
+  settings = ini.GetSection("settings");
+  if (settings == false)
+  {
+    std::cout << "ERROR: [settings] not found in the ini file" <<std::endl;
+    exit(1);
+  }
   const double dt = atof(ini.GetValue("settings", "timestep"));
   const double tmax = atof(ini.GetValue("settings", "tmax"));
   const std::string gravity = ini.GetValue("settings", "gravity");
+  printf("     dt = %15.8f\n", dt);
+  printf("   tmax = %15.8e\n", tmax);
+  std::cout << "gravity = " << gravity << std::endl;
   // get all sections
   CSimpleIniA::TNamesDepend sections;
   CSimpleIniA::TNamesDepend::const_iterator i;
