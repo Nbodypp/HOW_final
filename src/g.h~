@@ -1,0 +1,6 @@
+#ifndef G_H_
+#define G_H_
+
+   #define G_ 6.67384e-8
+
+#endif 
