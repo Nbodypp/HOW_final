@@ -5,7 +5,7 @@
 
 #include <math.h>
 #include "acceleration.h"
-#include "g.h"
+#include "constants.h"
 
 
 Acceleration::Acceleration(double mass2, double *r, int dimen, double *a) /** Constructor for Acceleration class*/
