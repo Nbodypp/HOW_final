@@ -18,7 +18,7 @@ Particle::Particle(double mass, double radius)
 Particle::~Particle()
 {}
 
-double Particle::operator-(const Particle& p)
+double Particle::d(const Particle& p)
 {
   return sqrt(pow((p.x-this->x), 2) +
               pow((p.y-this->y), 2) +
@@ -33,3 +33,20 @@ void Particle::print()
          this->ax, this->ay, this->az);
 }
 
+
+void print_particles(const Particles &particles) {
+  for (auto i = 0; i < particles.size(); ++i)
+  {
+    printf("%8.4f %8.4f %8.4f %8.4f %8.4f %8.4f %8.4f %8.4f %8.4f",
+        particles[i]->x,
+        particles[i]->y,
+        particles[i]->z,
+        particles[i]->vx,
+        particles[i]->vy,
+        particles[i]->vz,
+        particles[i]->ax,
+        particles[i]->ay,
+        particles[i]->az);
+  }
+  printf("\n");
+}

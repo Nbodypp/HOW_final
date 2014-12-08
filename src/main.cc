@@ -1,5 +1,4 @@
 #include <iostream>
-#include <memory>
 #include <stdio.h>
 #include <stdlib.h>
 #include <vector>
@@ -7,38 +6,12 @@
 #include <string.h>
 #include "SimpleIni.h"
 #include "particle.h"
-
-
-typedef std::vector<std::unique_ptr<Particle>> Particles;
-
-void print_particles(Particles &particles) {
-  std::cout << "number of particles = "<< particles.size() << std::endl;
-  for (auto i = particles.begin(); i < particles.end(); ++i) {
-    (*i)->print();
-  }
-}
-
-void update_accerelation(Particles &particles)
-{
-  for (int i = 0; i < particles.size(); ++i)
-  {
-    double ax = 0;
-    for (int j = 0; j < particles.size(); ++j)
-    {
-      if (j==i)
-      {
-        continue;
-      }
-      ax += particles[j]->mass / ((*particles[i])-(*particles[j]));
-    }
-    particles[i]->ax = ax;
-  }
-
-}
+#include "force.h"
+#include "math.h"
+#include "euler.h"
 
 int main(int argc, char *argv[])
 {
-
   // vector of pointers to Particle
   Particles particles;
 
@@ -49,41 +22,41 @@ int main(int argc, char *argv[])
   // TODO: verify required sections are there
   // TODO: verify required keys are there
   // get settings
-  const CSimpleIniA::TKeyVal *settings;
-  settings = ini.GetSection("settings");
-  if (settings == false)
-  {
-    std::cout << "ERROR: [settings] not found in the ini file" <<std::endl;
-    exit(1);
-  }
-  const double dt = atof(ini.GetValue("settings", "timestep"));
-  const double tmax = atof(ini.GetValue("settings", "tmax"));
-  const std::string gravity = ini.GetValue("settings", "gravity");
-  printf("     dt = %15.8f\n", dt);
-  printf("   tmax = %15.8e\n", tmax);
-  std::cout << "gravity = " << gravity << std::endl;
-  // get all sections
+  const double dt = atof(ini.GetValue("", "timestep"));
+  const double tmax = atof(ini.GetValue("", "tmax"));
+  const std::string gravity = ini.GetValue("", "gravity");
+  printf("#     dt = %15.8f\n", dt);
+  printf("#   tmax = %15.8e\n", tmax);
+  printf("#gravity = %s\n", gravity.c_str());
+
+  // Setup particles
   CSimpleIniA::TNamesDepend sections;
-  CSimpleIniA::TNamesDepend::const_iterator i;
   ini.GetAllSections(sections);
-  for (i = sections.begin(); i != sections.end(); ++i)
+  for (auto i = sections.begin(); i != sections.end(); ++i)
   {
-    if (strcmp(i->pItem, "settings") == 0) {
+    // skip root section -- it's for settings
+    if (strcmp(i->pItem, "") == 0) {
       continue;
     }
-    std::cout << "Initializeing " << i->pItem << std::endl; 
+    std::cout << "#Initializing " << i->pItem << std::endl; 
     tmpmass = atof(ini.GetValue(i->pItem, "mass"));
     tmpradius = atof(ini.GetValue(i->pItem, "radius"));
     particles.push_back(std::unique_ptr<Particle>(new Particle(tmpmass, tmpradius)));
     particles.back()->x = atof(ini.GetValue(i->pItem, "x"));
     particles.back()->y = atof(ini.GetValue(i->pItem, "y"));
     particles.back()->z = atof(ini.GetValue(i->pItem, "z"));
+    particles.back()->vx = atof(ini.GetValue(i->pItem, "vx"));
+    particles.back()->vy = atof(ini.GetValue(i->pItem, "vy"));
+    particles.back()->vz = atof(ini.GetValue(i->pItem, "vz"));
   }
-
   
-  print_particles(particles);
-  update_accerelation(particles);
-  print_particles(particles);
+  double t = 0;
+  Euler integrator (dt, particles.size());  
+  for (t = 0; t < tmax; t+=dt)
+  {
+    integrator.step(t, particles);
+    print_particles(particles);
+  }
 
   return 0;
 

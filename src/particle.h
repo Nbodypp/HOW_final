@@ -7,6 +7,8 @@
 
 #ifndef PARTICLE_H_
 #define PARTICLE_H_
+#include <vector>
+#include <memory>
 
 /**
  * @brief Particle class for each body.
@@ -40,16 +42,16 @@ class Particle {
   double ay;  /**< acceleration y */
   double az;  /**< acceleration z */
 
-  /** - Operator
-   * @brief Calculates distance between two particles
-   */
-  double operator-(const Particle& p);
-
   void print();
+  double d(const Particle &particle);
 
  private:
   static const int dimen_ = 3;
 };
+
+typedef std::vector<std::unique_ptr<Particle> > Particles;
+
+void print_particles(const Particles &particles);
 
 #endif  // PARTICLE_H_
     

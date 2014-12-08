@@ -18,7 +18,7 @@ doc: ../doc/Doxyfile
 testParticle: particle.o testParticle.o
 	$(CXX) $(CFLAGS) -o testParticle particle.o testParticle.o
 
-nbodypp: main.o particle.o 
+nbodypp: main.o particle.o  force_direct.o euler.o
 	$(CXX) $(CFLAGS) -o $@ $^
 
 clean:
