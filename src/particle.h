@@ -44,6 +44,8 @@ class Particle {
 
   void print();
   double d(const Particle &particle);
+  double v();
+  double Ekin();
 
  private:
   static const int dimen_ = 3;

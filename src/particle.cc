@@ -25,6 +25,16 @@ double Particle::d(const Particle& p)
               pow((p.z-this->z), 2));
 }
 
+double Particle::v() {
+  return sqrt(pow((this->vx), 2) +
+              pow((this->vy), 2) +
+              pow((this->vz), 2));
+}
+
+double Particle::Ekin() {
+  return 0.5 * this->mass * pow(this->v(), 2);
+}
+
 void Particle::print()
 {
   printf("%8.4f %8.4f %8.4f %8.4f %8.4f %8.4f %8.4f %8.4f %8.4f\n",
@@ -50,3 +60,19 @@ void print_particles(const Particles &particles) {
   }
   printf("\n");
 }
+
+double kinetic_energy(const Particles& particles) {
+  double E = 0;
+  for (int i = 0; i < particles.size(); ++i)
+  {
+    E += particles[i]->Ekin();
+  }
+  return E;
+}
+
+double potential_energy(const Particles& particles) {
+  double E = 0;
+  // TODO
+  return E;
+}
+
