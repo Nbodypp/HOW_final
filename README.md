@@ -3,12 +3,12 @@ Nbodypp
 
 Directory Structure
 -------------------
-doc/ documentation
-src/ source code
-  vendor/ third-party libs
-    simpleini/  [INI file parser](https://github.com/brofield/simpleini)
-    catch.hpp   [catch](https://github.com/philsquared/Catch/) testing framework
-  tests/  tests
+- doc/ documentation
+- src/ source code
+  * vendor/ third-party libs
+    + simpleini/  [INI file parser](https://github.com/brofield/simpleini)
+    + catch.hpp   [catch](https://github.com/philsquared/Catch/) testing framework
+  * tests/  tests
 
 Documentation
 -------------
