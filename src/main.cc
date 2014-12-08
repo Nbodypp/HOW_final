@@ -1,50 +1,63 @@
-#include <stdlib.h>
+#include <iostream>
 #include <stdio.h>
-//#include "integrator.h"
-//#include "orbit_object.h"
-
-
-void intro_message(char *name)
-{
-  printf("Usage: %s\n",name);
-  printf("\n");
-  exit(1);
-}
-
+#include <stdlib.h>
+#include <vector>
+#include <typeinfo>
+#include <string.h>
+#include "SimpleIni.h"
+#include "particle.h"
+#include "force.h"
+#include "math.h"
+#include "euler.h"
 
 int main(int argc, char *argv[])
 {
-  //Just a thought, maybe we can the first lines of the input file define the number of objects and such, and then the rest of the lines define the properties of the objects
-  if(argc!=2)
-    {
-      intromessage(argv[0]);
+  // vector of pointers to Particle
+  Particles particles;
+
+  CSimpleIniA ini;
+  ini.LoadFile("test.ini");
+  double tmpmass, tmpradius;
+
+  // TODO: verify required sections are there
+  // TODO: verify required keys are there
+  // get settings
+  const double dt = atof(ini.GetValue("", "timestep"));
+  const double tmax = atof(ini.GetValue("", "tmax"));
+  const std::string gravity = ini.GetValue("", "gravity");
+  printf("#     dt = %15.8f\n", dt);
+  printf("#   tmax = %15.8e\n", tmax);
+  printf("#gravity = %s\n", gravity.c_str());
+
+  // Setup particles
+  CSimpleIniA::TNamesDepend sections;
+  ini.GetAllSections(sections);
+  for (auto i = sections.begin(); i != sections.end(); ++i)
+  {
+    // skip root section -- it's for settings
+    if (strcmp(i->pItem, "") == 0) {
+      continue;
     }
-  const int n_objects = 2; //This will be accessed from command line arguments or the input file somehow
-
-  /*Initialize the objects that will be orbiting*/
-
-  for(int i=0; i<n_objects;i++)
-    {
-      //initialize an orbit_object class.
-      //How are we going to do set up different instances for each object?  We have to figure out some way to define an arbitrary number of names for each instance.
-    }
-
+    std::cout << "#Initializing " << i->pItem << std::endl; 
+    tmpmass = atof(ini.GetValue(i->pItem, "mass"));
+    tmpradius = atof(ini.GetValue(i->pItem, "radius"));
+    particles.push_back(std::unique_ptr<Particle>(new Particle(tmpmass, tmpradius)));
+    particles.back()->x = atof(ini.GetValue(i->pItem, "x"));
+    particles.back()->y = atof(ini.GetValue(i->pItem, "y"));
+    particles.back()->z = atof(ini.GetValue(i->pItem, "z"));
+    particles.back()->vx = atof(ini.GetValue(i->pItem, "vx"));
+    particles.back()->vy = atof(ini.GetValue(i->pItem, "vy"));
+    particles.back()->vz = atof(ini.GetValue(i->pItem, "vz"));
+  }
   
-  Integrator *integrator_struct;
+  double t = 0;
+  Euler integrator (dt, particles.size());  
+  for (t = 0; t < tmax; t+=dt)
+  {
+    integrator.step(t, particles);
+    print_particles(particles);
+  }
 
-  integrator_struct=integrator_new(); //How to do this the OO way?
-
-  for(int i=0;i<n_steps;i++)
-    {
-      check = integrator_step()
-        if(check!=0)
-          {
-            printf("Failure on stepping for some reason.\n Now quitting...\n");
-            exit(-1);
-          }
-      printf("The values\n");
-    }
-
-  integrator_free(integrator_struct);
+  return 0;
 
 }

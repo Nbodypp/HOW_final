@@ -1,19 +1,18 @@
 #ifndef EULER_H_
 #define EULER_H_
 
-#include "integrator.h"
-class Model;
+#include "particle.h"
 
-class Euler : public Integrator {
+class Euler {
  public:
-  Euler(double dt, const Model &model);
-  ~Euler();
-  int Step(double t, double *x);
+   Euler(double dt, int Nparticles);  // TODO: seems better to accept force model
+   ~Euler();
+   int step(double t, const Particles& particles);
  private:
-  const int dimen_;                     // dimension of state x
-  const double dt_;                     // timestep
-  const Model &model_;                  // functor to evaluate f(x,t)
-  double *fx_;                          // temporary space to hold f(x,t)
+   const double dt_;    // timestep
+   const int Nparticles_;
+   double* x_;
+   double* v_;
+   double* a_;
 };
-
 #endif  // EULER_H_
