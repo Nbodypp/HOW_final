@@ -54,15 +54,15 @@ int main(int argc, char *argv[])
   }
   
   // Setup the force model
-  printf("Setting up a force model\n");
+  printf("#Setting up a force model\n");
   Force force;
 
   // Setup the integrator
-  printf("Setting up an integrator\n");
+  printf("#Setting up an integrator\n");
   Integrator *integrator = NULL;
   if (integrator_name.compare("euler") == 0)
   {
-    printf("Setting up an euler integrator\n");
+    printf("#Setting up an euler integrator\n");
     integrator = new Euler(dt, particles.size(), force);
   }
   if (integrator == NULL)
@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
     printf("ERROR: integrator %s is not known\n", integrator_name.c_str()); 
   }
 
-  printf("Start integration\n");
+  printf("#Start integration\n");
   double t = 0;
   for (t = 0; t < tmax; t+=dt)
   {
