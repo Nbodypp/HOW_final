@@ -1,5 +1,5 @@
 #include "euler.h"
-#include "force.h"
+
 
 Euler::Euler(double dt, int Nparticles, const Force &force)
   : dt_(dt),
