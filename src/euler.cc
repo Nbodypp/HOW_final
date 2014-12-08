@@ -1,9 +1,10 @@
 #include "euler.h"
 #include "force.h"
 
-Euler::Euler(double dt, int Nparticles)
+Euler::Euler(double dt, int Nparticles, const Force &force)
   : dt_(dt),
-    Nparticles_(Nparticles) {
+    Nparticles_(Nparticles),
+    force_(force) {
   x_ = new double[3*Nparticles_];
   v_ = new double[3*Nparticles_];
   a_ = new double[3*Nparticles_];
@@ -16,7 +17,8 @@ Euler::~Euler() {
 }
 
 int Euler::step(double t, const Particles& particles) {
-  update_acceleration(particles);
+
+  force_.update_acceleration(particles);
   for (int i = 0; i < Nparticles_; ++i)
   {
     x_[i*3]   = particles[i]->x;

@@ -8,6 +8,7 @@
 #include "particle.h"
 #include "force.h"
 #include "math.h"
+#include "integrator.h"
 #include "euler.h"
 
 int main(int argc, char *argv[])
@@ -25,9 +26,11 @@ int main(int argc, char *argv[])
   const double dt = atof(ini.GetValue("", "timestep"));
   const double tmax = atof(ini.GetValue("", "tmax"));
   const std::string gravity = ini.GetValue("", "gravity");
-  printf("#     dt = %15.8f\n", dt);
-  printf("#   tmax = %15.8e\n", tmax);
-  printf("#gravity = %s\n", gravity.c_str());
+  const std::string integrator_name = ini.GetValue("", "integrator");
+  printf("#     dt    = %15.8f\n", dt);
+  printf("#   tmax    = %15.8e\n", tmax);
+  printf("#gravity    = %s\n", gravity.c_str());
+  printf("#integrator = %s\n", integrator_name.c_str());
 
   // Setup particles
   CSimpleIniA::TNamesDepend sections;
@@ -50,14 +53,33 @@ int main(int argc, char *argv[])
     particles.back()->vz = atof(ini.GetValue(i->pItem, "vz"));
   }
   
-  double t = 0;
-  Euler integrator (dt, particles.size());  
-  for (t = 0; t < tmax; t+=dt)
+  // Setup the force model
+  printf("Setting up a force model\n");
+  Force force;
+
+  // Setup the integrator
+  printf("Setting up an integrator\n");
+  Integrator *integrator = NULL;
+  if (integrator_name.compare("euler") == 0)
   {
-    integrator.step(t, particles);
-    print_particles(particles);
+    printf("Setting up an euler integrator\n");
+    integrator = new Euler(dt, particles.size(), force);
+  }
+  if (integrator == NULL)
+  {
+    printf("ERROR: integrator %s is not known\n", integrator_name.c_str()); 
   }
 
+  printf("Start integration\n");
+  double t = 0;
+  for (t = 0; t < tmax; t+=dt)
+  {
+    integrator->step(t, particles);
+    print_particles(particles);    // TODO: print to a file
+  }
+
+  // Clean up
+  delete integrator;
   return 0;
 
 }

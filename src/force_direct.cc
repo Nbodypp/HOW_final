@@ -1,15 +1,21 @@
 #include "force.h"
 #include "math.h"
 
-void update_acceleration(const Particles& particles)
+Force::Force() {
+}
+
+Force::~Force() {
+}
+
+void Force::update_acceleration(const Particles& particles) const
 {
-  for (auto i = 0; i < particles.size(); ++i)
+  for (int i = 0; i < particles.size(); ++i)
   {
     double r = 0;
     double ax = 0;
     double ay = 0;
     double az = 0;
-    for (auto j = 0; j < particles.size(); ++j)
+    for (int j = 0; j < particles.size(); ++j)
     {
       if (j==i)
       {
