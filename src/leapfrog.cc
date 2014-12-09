@@ -19,13 +19,7 @@ int Leapfrog::step(double t, const Particles& particles) {
     particles[i]->z += dt_ * particles[i]->vz;
   }
   force_.update_acceleration(particles);
-  for (int i = 0; i < particles.size(); ++i)
-  {
-    particles[i]->vx += dt_ * particles[i]->ax;
-    particles[i]->vy += dt_ * particles[i]->ay;
-    particles[i]->vz += dt_ * particles[i]->az;
-  }
-  advance_vel(-0.5*dt_, particles);  // sync vel with position
+  advance_vel(0.5*dt_, particles);  // sync vel with position
   return 0;
 }
 
