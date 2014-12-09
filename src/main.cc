@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
   if (integrator_name.compare("euler") == 0)
   {
     printf("#Setting up an euler integrator\n");
-    integrator = new Euler(dt, particles.size(), force);
+    integrator = new Euler(dt, force);
   }
   if (integrator == NULL)
   {
