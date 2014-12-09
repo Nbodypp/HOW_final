@@ -51,6 +51,10 @@ class Particle {
   static const int dimen_ = 3;
 };
 
+/**
+ * @typedef Particles
+ * @brief vector of pointers to Particle
+ */
 typedef std::vector<std::unique_ptr<Particle> > Particles;
 
 void print_particles(const Particles &particles);
