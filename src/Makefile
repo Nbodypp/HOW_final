@@ -22,7 +22,7 @@ doc: ../doc/Doxyfile
 testParticle: particle.o tests/testParticle.o
 	$(CXX) $(CFLAGS) -o $(testdir)/testParticle $^
 
-nbodypp: main.o particle.o  force_direct.o euler.o
+nbodypp: main.o particle.o  force_direct.o euler.o leapfrog.o
 	$(CXX) $(CFLAGS) -o $@ $^
 
 clean:

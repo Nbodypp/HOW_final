@@ -10,6 +10,7 @@
 #include "math.h"
 #include "integrator.h"
 #include "euler.h"
+#include "leapfrog.h"
 
 int main(int argc, char *argv[])
 {
@@ -64,6 +65,11 @@ int main(int argc, char *argv[])
   {
     printf("#Setting up an euler integrator\n");
     integrator = new Euler(dt, force);
+  }
+  else if (integrator_name.compare("leapfrog") == 0)
+  {
+    printf("#Setting up a leapfrog integrator\n");
+    integrator = new Leapfrog(dt, force);
   }
   if (integrator == NULL)
   {

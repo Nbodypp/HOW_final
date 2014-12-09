@@ -1,0 +1,39 @@
+#include "leapfrog.h"
+
+Leapfrog::Leapfrog(double dt, const Force &force)
+  : dt_(dt),
+    force_(force) {
+}
+
+Leapfrog::~Leapfrog() {
+}
+
+int Leapfrog::step(double t, const Particles& particles) {
+
+  force_.update_acceleration(particles);
+  advance_vel(0.5*dt_, particles);
+  for (int i = 0; i < particles.size(); ++i)
+  {
+    particles[i]->x += dt_ * particles[i]->vx;
+    particles[i]->y += dt_ * particles[i]->vy;
+    particles[i]->z += dt_ * particles[i]->vz;
+  }
+  force_.update_acceleration(particles);
+  for (int i = 0; i < particles.size(); ++i)
+  {
+    particles[i]->vx += dt_ * particles[i]->ax;
+    particles[i]->vy += dt_ * particles[i]->ay;
+    particles[i]->vz += dt_ * particles[i]->az;
+  }
+  advance_vel(-0.5*dt_, particles);  // sync vel with position
+  return 0;
+}
+
+void Leapfrog::advance_vel(double dt, const Particles& particles) {
+  for (int i = 0; i < particles.size(); ++i)
+  {
+    particles[i]->vx += dt * particles[i]->ax;
+    particles[i]->vy += dt * particles[i]->ay;
+    particles[i]->vz += dt * particles[i]->az;
+  }
+}
