@@ -12,7 +12,7 @@
 #include "euler.h"
 #include "leapfrog.h"
 
-/** Prints this message if the wrong number of command line arguments are given
+/** Prints this message if the wrong number of command line arguments is given
  */
 void intromessage(char *name)
 {
@@ -29,8 +29,7 @@ int main(int argc, char *argv[])
       intromessage(argv[0]);
     }
 
-  // vector of pointers to Particle
-  Particles particles;
+  Particles particles;  ///< vector of pointers to Particle class instances
 
   CSimpleIniA ini;
   ini.LoadFile(argv[1]);
@@ -39,10 +38,10 @@ int main(int argc, char *argv[])
   // TODO: verify required sections are there
   // TODO: verify required keys are there
   // get settings
-  const double dt = atof(ini.GetValue("", "timestep"));
-  const double tmax = atof(ini.GetValue("", "tmax"));
-  const std::string gravity = ini.GetValue("", "gravity");
-  const std::string integrator_name = ini.GetValue("", "integrator");
+  const double dt = atof(ini.GetValue("", "timestep")); ///< Timestep size
+  const double tmax = atof(ini.GetValue("", "tmax")); ///< Maximum time to run to
+  const std::string gravity = ini.GetValue("", "gravity"); ///< Specifies how to calculate the gravity
+  const std::string integrator_name = ini.GetValue("", "integrator"); ///< Specifies name of integrator to use
   printf("#     dt    = %15.8f\n", dt);
   printf("#   tmax    = %15.8e\n", tmax);
   printf("#gravity    = %s\n", gravity.c_str());
