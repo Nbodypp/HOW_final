@@ -16,7 +16,7 @@ Euler::~Euler() {
 int Euler::step(double t, const Particles& particles) {
 
   force_.update_acceleration(particles);
-  for (int i = 0; i < particles.size(); ++i)
+  for (unsigned int i = 0; i < particles.size(); ++i)
   {
     particles[i]->x += dt_ * particles[i]->vx;
     particles[i]->y += dt_ * particles[i]->vy;

@@ -12,7 +12,7 @@ int Leapfrog::step(double t, const Particles& particles) {
 
   force_.update_acceleration(particles);
   advance_vel(0.5*dt_, particles);
-  for (int i = 0; i < particles.size(); ++i)
+  for (unsigned int i = 0; i < particles.size(); ++i)
   {
     particles[i]->x += dt_ * particles[i]->vx;
     particles[i]->y += dt_ * particles[i]->vy;
@@ -25,7 +25,7 @@ int Leapfrog::step(double t, const Particles& particles) {
 
 // advance velocity by dt
 void Leapfrog::advance_vel(double dt, const Particles& particles) {
-  for (int i = 0; i < particles.size(); ++i)
+  for (unsigned int i = 0; i < particles.size(); ++i)
   {
     particles[i]->vx += dt * particles[i]->ax;
     particles[i]->vy += dt * particles[i]->ay;
