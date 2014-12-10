@@ -22,7 +22,7 @@ int Collision::collision_check_all(const Particles& particles) const
     {
       r = particles[i]->d((*particles[j]));
 
-      if( (particles[i]->radius + particles[j]->radius) < r) 
+      if( (particles[i]->radius + particles[j]->radius) > r) 
         {
           has_collision_happened = 1;
           printf("#COLLISION OCCURRED!\n");
