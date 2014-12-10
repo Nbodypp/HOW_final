@@ -12,13 +12,28 @@
 #include "euler.h"
 #include "leapfrog.h"
 
+/** Prints this message if the wrong number of command line arguments are given
+ */
+void intromessage(char *name)
+{
+  printf("Usage: %s, in_file\n",name);
+  printf("      in_file:    Name of the .ini input file with all the input parameters\n");
+  exit(0);
+}
+
+
 int main(int argc, char *argv[])
 {
+  if(argc!=2) //If the wrong number of command line arguments is given
+    {
+      intromessage(argv[0]);
+    }
+
   // vector of pointers to Particle
   Particles particles;
 
   CSimpleIniA ini;
-  ini.LoadFile("test.ini");
+  ini.LoadFile(argv[1]);
   double tmpmass, tmpradius;
 
   // TODO: verify required sections are there
