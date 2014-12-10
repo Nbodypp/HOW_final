@@ -12,10 +12,10 @@ void Force::update_acceleration(const Particles& particles) const
 {
   for (int i = 0; i < particles.size(); ++i)
   {
-    double r = 0;
-    double ax = 0;
-    double ay = 0;
-    double az = 0;
+    double r = 0.;
+    double ax = 0.;
+    double ay = 0.;
+    double az = 0.;
     for (int j = 0; j < particles.size(); ++j)
     {
       if (j==i)
