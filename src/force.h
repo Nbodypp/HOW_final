@@ -12,10 +12,6 @@ class Force {
   Force();
   ~Force();
 
-  /**
-   * update acceleration of all particles
-   * @param particles instance of Particles
-   */
   void update_acceleration(const Particles& particles) const;
 };
 

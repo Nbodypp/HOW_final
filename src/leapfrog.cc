@@ -23,6 +23,7 @@ int Leapfrog::step(double t, const Particles& particles) {
   return 0;
 }
 
+// advance velocity by dt
 void Leapfrog::advance_vel(double dt, const Particles& particles) {
   for (int i = 0; i < particles.size(); ++i)
   {

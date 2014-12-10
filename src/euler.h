@@ -1,9 +1,18 @@
+/**
+ * @file
+ *
+ * @brief Forward Euler integrator
+ */
+
 #ifndef EULER_H_
 #define EULER_H_
 
 #include "integrator.h"
 #include "force.h"
 
+/**
+ * @brief Forward Euler integrator
+ */
 class Euler : public Integrator {
  public:
   Euler(double dt,const Force &force);

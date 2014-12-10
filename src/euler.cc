@@ -1,6 +1,9 @@
 #include "euler.h"
 
-
+/**
+ * @param dt timestep
+ * @param foce Force model
+ */
 Euler::Euler(double dt, const Force &force)
   : dt_(dt),
     force_(force) {
@@ -9,6 +12,7 @@ Euler::Euler(double dt, const Force &force)
 Euler::~Euler() {
 }
 
+/** Step particles' position and velocity */
 int Euler::step(double t, const Particles& particles) {
 
   force_.update_acceleration(particles);

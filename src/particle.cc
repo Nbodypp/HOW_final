@@ -1,10 +1,12 @@
-/**
- * @file
- */
 #include "particle.h"
 #include <stdio.h>
 #include <math.h>
 
+/**
+ * Constructor
+ * @param mass mass of the particle
+ * @param radius radius of the particle
+ */
 Particle::Particle(double mass, double radius)
  : mass(mass),
    radius(radius),
@@ -18,6 +20,7 @@ Particle::Particle(double mass, double radius)
 Particle::~Particle()
 {}
 
+/** distance between particles */
 double Particle::d(const Particle& p)
 {
   return sqrt(pow((p.x-this->x), 2) +
@@ -25,16 +28,19 @@ double Particle::d(const Particle& p)
               pow((p.z-this->z), 2));
 }
 
+/** velocity of the particle */
 double Particle::v() {
   return sqrt(pow((this->vx), 2) +
               pow((this->vy), 2) +
               pow((this->vz), 2));
 }
 
+/** Kinetic energy of the particle */
 double Particle::Ekin() {
   return 0.5 * this->mass * pow(this->v(), 2);
 }
 
+/** print position, velocity, and acceleration of the particle */
 void Particle::print()
 {
   printf("%8.4f %8.4f %8.4f %8.4f %8.4f %8.4f %8.4f %8.4f %8.4f\n",
@@ -43,7 +49,7 @@ void Particle::print()
          this->ax, this->ay, this->az);
 }
 
-
+/** print position, velocity and acceleration of all particles */
 void print_particles(const Particles &particles) {
   for (auto i = 0; i < particles.size(); ++i)
   {
@@ -61,6 +67,7 @@ void print_particles(const Particles &particles) {
   printf("\n");
 }
 
+/** calculate the kinetic energy of the particle */
 double kinetic_energy(const Particles& particles) {
   double E = 0;
   for (int i = 0; i < particles.size(); ++i)
@@ -70,6 +77,7 @@ double kinetic_energy(const Particles& particles) {
   return E;
 }
 
+/** calculate the potential energy of particles configuration */
 double potential_energy(const Particles& particles) {
   double E = 0;
   // TODO

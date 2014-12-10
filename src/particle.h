@@ -2,7 +2,6 @@
  * @file
  *
  * @brief Particle class
- * Longer description goes here
  */
 
 #ifndef PARTICLE_H_
@@ -15,16 +14,7 @@
  */
 class Particle {
  public:
-  /**
-   * Constructor
-   * @param mass mass of the particle
-   * @param radius radius of the particle
-   */
   Particle(double mass, double radius);
-
-  /**
-   * Destructor
-   */
   ~Particle();
 
   double mass;  /**< mass of the particle */
@@ -58,6 +48,8 @@ class Particle {
 typedef std::vector<std::unique_ptr<Particle> > Particles;
 
 void print_particles(const Particles &particles);
+double kinetic_energy(const Particles &particles);
+double potential_energy(const Particles &particles);
 
 #endif  // PARTICLE_H_
     

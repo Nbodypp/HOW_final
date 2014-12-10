@@ -7,6 +7,7 @@ Force::Force() {
 Force::~Force() {
 }
 
+/** update acceleration of all particles */
 void Force::update_acceleration(const Particles& particles) const
 {
   for (int i = 0; i < particles.size(); ++i)
