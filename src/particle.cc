@@ -51,7 +51,7 @@ void Particle::print()
 
 /** print position, velocity and acceleration of all particles */
 void print_particles(const Particles &particles) {
-  for (auto i = 0; i < particles.size(); ++i)
+  for (unsigned int i = 0; i < particles.size(); ++i)
   {
     printf("%8.4f %8.4f %8.4f %8.4f %8.4f %8.4f %8.4f %8.4f %8.4f",
         particles[i]->x,
@@ -70,7 +70,7 @@ void print_particles(const Particles &particles) {
 /** calculate the kinetic energy of the particle */
 double kinetic_energy(const Particles& particles) {
   double E = 0;
-  for (int i = 0; i < particles.size(); ++i)
+  for (unsigned int i = 0; i < particles.size(); ++i)
   {
     E += particles[i]->Ekin();
   }
