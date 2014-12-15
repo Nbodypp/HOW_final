@@ -1,8 +1,8 @@
 #define CATCH_CONFIG_MAIN
-#include "catch.hpp"
+#include "../vendor/catch.hpp"
 #include <stdio.h>
 
-#include "particle.h"
+#include "../particle.h"
 
 TEST_CASE("Create Particle", "[particle]") {
   Particle particle(5., 1.);
