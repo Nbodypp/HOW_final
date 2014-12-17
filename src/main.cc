@@ -12,7 +12,7 @@
 #include "euler.h"
 #include "leapfrog.h"
 
-
+#include "tempfunctions.h"
 
 int main(int argc, char *argv[])
 {
