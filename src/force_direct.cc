@@ -8,7 +8,7 @@ Force::~Force() {
 }
 
 /** update acceleration of all particles */
-void Force::update_acceleration(const Particles& particles, const Extra_Force_Func_Vec &functions) const
+void Force::update_acceleration(const Particles& particles) const
 {
   for (unsigned int i = 0; i < particles.size(); ++i)
   {
@@ -31,28 +31,17 @@ void Force::update_acceleration(const Particles& particles, const Extra_Force_Fu
     particles[i]->ay = ay;
     particles[i]->az = az;
 
-    /*Now to add our extra-Newtonian forces and/or corrections*/
-    //if(functions != NULL)
-    // {
-        extra_acceleration(particles,functions);
-        // }
+    // Now to add our non-gravitational forces
+    for (int i = 0; i < forces_.size(); ++i)
+    {
+      forces_[i](particles);
+    }
   }
 }
 
-
-void Force::extra_acceleration(const Particles& particles, const Extra_Force_Func_Vec &functions) const
-{
-  double extra_accelerations[particles.size()][3];
-  for(unsigned int i=0; i<functions.size(); ++i)
-    {
-      functions[i](particles,&extra_accelerations);
-      
-      for(unsigned int j=0; j<particles.size(); ++j)
-        {
-          particles[j]->ax += extra_accelerations[j][0];
-          particles[j]->ay += extra_accelerations[j][1];
-          particles[j]->az += extra_accelerations[j][2];
-        }
-    }
+/** add a non-gravitational force*/
+int Force::add_force(ForceFunc force) {
+  forces_.push_back(force);
+  return 0;
 }
 
