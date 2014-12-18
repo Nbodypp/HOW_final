@@ -28,5 +28,8 @@ testForce: particle.o force_direct.o tests/testForce.o
 nbodypp: main.o particle.o  force_direct.o euler.o leapfrog.o
 	$(CXX) $(CFLAGS) -o $@ $^
 
+sunEarthMoon: main.2.o particle.o force_direct.o intro.o euler.o leapfrog.o
+	$(CXX) $(CFLAGS) -o $@ $^
+
 clean:
-	-rm -rf *.o nbodypp
+	-rm -rf *.o nbodypp sunEarthMoon

@@ -1,3 +1,5 @@
+//Difference between this and main.cc is that this allows for an input file to
+//be defined via a command line argument
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -5,6 +7,7 @@
 #include <typeinfo>
 #include <string.h>
 #include "SimpleIni.h"
+#include "intro.h"
 #include "particle.h"
 #include "force.h"
 #include "math.h"
@@ -12,7 +15,6 @@
 #include "euler.h"
 #include "leapfrog.h"
 
-//#include "tempfunctions.h"
 
 int main(int argc, char *argv[])
 {
@@ -20,7 +22,12 @@ int main(int argc, char *argv[])
   Particles particles;  ///< vector of pointers to Particle class instances
 
   CSimpleIniA ini;
-  ini.LoadFile("test.ini");
+  if(argc!=2)
+    {
+      intromessage(argv[0]);
+    }
+  
+  ini.LoadFile(argv[1]);
   double tmpmass, tmpradius;
 
   // TODO: verify required sections are there

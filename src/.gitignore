@@ -6,3 +6,6 @@ testParticle
 *~
 *#
 test.cc
+*.dat
+
+examples/png/*
