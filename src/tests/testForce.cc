@@ -13,7 +13,7 @@ void dragforce(const Particles &p) {
   }
 };
 
-TEST_CASE("Create Particle", "[particle]") {
+TEST_CASE("Test if add_force works", "[force]") {
   Particles particles;
   particles.push_back(std::unique_ptr<Particle>(new Particle(1, 1)));
   particles.back()->vx = 3.;
