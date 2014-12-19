@@ -30,3 +30,6 @@
 *.out
 *.app
 *.swp
+.*.swp
+
+

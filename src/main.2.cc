@@ -86,6 +86,9 @@ int main(int argc, char *argv[])
   }
 
   printf("#Start integration\n");
+
+  print_particles(particles);  //print initial conditions
+
   double t = 0;
   for (t = 0; t < tmax; t+=dt)
   {

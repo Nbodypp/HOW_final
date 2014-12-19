@@ -18,7 +18,12 @@ for i in range(len(sun[0])):
         plt.scatter(earth[0][i],earth[1][i],c='blue',marker='.')#,alpha=1,s=20)
         plt.scatter(moon[0][i],moon[1][i],c='gray',marker='.')#,alpha=1,s=10)
 
+        #plt.xlim(0,2e13)
+        #plt.ylim(-2e13,2e13)        
+
         tempstring = "png/sunEarthMoon." + str(i/skip) + ".png"
+
+
         plt.savefig(tempstring)
         plt.close()
         print str(i/skip) + " done"
