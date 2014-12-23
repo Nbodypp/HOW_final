@@ -34,8 +34,5 @@ testEuler_SI: particle.o force_direct.o euler_semi_implicit.o tests/testEuler_SI
 nbodypp: main.o particle.o  force_direct.o euler.o leapfrog.o
 	$(CXX) $(CFLAGS) -o $@ $^
 
-sunEarthMoon: main.2.o particle.o force_direct.o intro.o euler.o leapfrog.o
-	$(CXX) $(CFLAGS) -o $@ $^
-
 clean:
 	-rm -rf *.o nbodypp sunEarthMoon

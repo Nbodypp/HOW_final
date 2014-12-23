@@ -16,20 +16,23 @@
 
 int main(int argc, char *argv[])
 {
-
-  Particles particles;  ///< vector of pointers to Particle class instances
-
+  if (argc != 2) {
+    printf("USAGE: %s <inputfile>\n", argv[0]);
+    exit(0);
+  }
   CSimpleIniA ini;
-  ini.LoadFile("test.ini");
+  ini.LoadFile(argv[1]);
   double tmpmass, tmpradius;
+
+  Particles particles;  //vector of pointers to Particle class instances
 
   // TODO: verify required sections are there
   // TODO: verify required keys are there
   // get settings
-  const double dt = atof(ini.GetValue("", "timestep")); ///< Timestep size
-  const double tmax = atof(ini.GetValue("", "tmax")); ///< Maximum time to run to
-  const std::string gravity = ini.GetValue("", "gravity"); ///< Specifies how to calculate the gravity
-  const std::string integrator_name = ini.GetValue("", "integrator"); ///< Specifies name of integrator to use
+  const double dt = atof(ini.GetValue("", "timestep"));
+  const double tmax = atof(ini.GetValue("", "tmax"));
+  const std::string gravity = ini.GetValue("", "gravity");
+  const std::string integrator_name = ini.GetValue("", "integrator");
   printf("#     dt    = %15.8f\n", dt);
   printf("#   tmax    = %15.8e\n", tmax);
   printf("#gravity    = %s\n", gravity.c_str());
