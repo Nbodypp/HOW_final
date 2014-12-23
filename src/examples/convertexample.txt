@@ -1,1 +1,0 @@
-convert -delay 30 png/sunEarthMoon.*png png/sunEarthMoon.gif
