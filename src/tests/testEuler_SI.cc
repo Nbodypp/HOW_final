@@ -70,6 +70,8 @@ TEST_CASE("Euler Semi Implicit", "[EulerSI]")
   REQUIRE(particles[1]->y == 0.0);
   REQUIRE(particles[1]->z == -1.0 * G_ + z_0);
 
+  delete integrator;
+
 }
 
 
