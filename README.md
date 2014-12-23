@@ -9,6 +9,8 @@ Directory Structure
     + simpleini/  [INI file parser](https://github.com/brofield/simpleini)
     + catch.hpp   [catch](https://github.com/philsquared/Catch/) testing framework
   * tests/  tests
+  * examples/ examples to possibly use for presentation (e.g., earth orbiting sun)
+    * png/  where the image files are stored from the examples (not tracked by git)
 
 Documentation
 -------------
