@@ -2,6 +2,7 @@ nbodypp
 sunEarthMoon
 testParticle
 testCollision
+testEuler_SI
 .*un~
 
 *~

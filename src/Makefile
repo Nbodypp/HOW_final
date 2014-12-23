@@ -28,6 +28,9 @@ testForce: particle.o force_direct.o tests/testForce.o
 testCollision: particle.o collision.o tests/testCollision.o
 	$(CXX) $(CFLAGS) -o $(testdir)/testCollision $^
 
+testEuler_SI: particle.o force_direct.o euler_semi_implicit.o tests/testEuler_SI.o
+	$(CXX) $(CFLAGS) -o $(testdir)/testEuler_SI $^
+
 nbodypp: main.o particle.o  force_direct.o euler.o leapfrog.o
 	$(CXX) $(CFLAGS) -o $@ $^
 
