@@ -1,9 +1,9 @@
 #define CATCH_CONFIG_MAIN
-#include "../vendor/catch.hpp"
+#include "catch.hpp"
 #include <stdio.h>
 
-#include "../collision.h"
-#include "../particle.h"
+#include "collision.h"
+#include "particle.h"
 
 
 TEST_CASE("Checking collision algorithm works", "[collision]")
