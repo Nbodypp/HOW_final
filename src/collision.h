@@ -1,7 +1,7 @@
 /**
  *
  *
- * @brief Collision class, checks if two objects have collided
+ * @brief Collision function, checks if two objects have collided
  */
 
 #ifndef COLLISION_H_
@@ -9,13 +9,6 @@
 
 #include "particle.h"
 
-class Collision {
- public:
-  Collision();
-  ~Collision();
-
-  int collision_check_all(const Particles& particles) const;
-};
-
+int collision_check_all(const Particles& particles);
 
 #endif  // COLLISION_H_
