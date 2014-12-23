@@ -1,5 +1,6 @@
 .*.swp
 nbodypp
+sunEarthMoon
 testParticle
 .*un~
 
@@ -9,3 +10,4 @@ test.cc
 *.dat
 
 *png
+*gif
