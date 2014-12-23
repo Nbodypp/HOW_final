@@ -25,6 +25,9 @@ testParticle: particle.o tests/testParticle.o
 testForce: particle.o force_direct.o tests/testForce.o
 	$(CXX) $(CFLAGS) -o $(testdir)/testForce $^
 
+testCollision: particle.o collision.o tests/testCollision.o
+	$(CXX) $(CFLAGS) -o $(testdir)/testCollision $^
+
 nbodypp: main.o particle.o  force_direct.o euler.o leapfrog.o
 	$(CXX) $(CFLAGS) -o $@ $^
 
