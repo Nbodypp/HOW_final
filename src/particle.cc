@@ -43,7 +43,7 @@ double Particle::Ekin() {
 /** print position, velocity, and acceleration of the particle */
 void Particle::print()
 {
-  printf("%8.4f %8.4f %8.4f %8.4f %8.4f %8.4f %8.4f %8.4f %8.4f\n",
+  printf("%15.8e %15.8e %15.8e %15.8e %15.8e %15.8e %15.8e %15.8e %15.8e\n",
          this->x, this->y, this->z,
          this->vx, this->vy, this->vz,
          this->ax, this->ay, this->az);
@@ -53,7 +53,7 @@ void Particle::print()
 void print_particles(const Particles &particles) {
   for (unsigned int i = 0; i < particles.size(); ++i)
   {
-    printf("%8.4f %8.4f %8.4f %8.4f %8.4f %8.4f %8.4f %8.4f %8.4f",
+    printf("%15.4e %15.4e %15.4e %15.4e %15.4e %15.4e %15.4e %15.4e %15.4e",
         particles[i]->x,
         particles[i]->y,
         particles[i]->z,
