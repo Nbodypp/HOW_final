@@ -1,6 +1,13 @@
 Nbodypp
 =========
 
+- [ ] more examples - drag force (additional force example), ...
+- [ ] output tools
+  * write to a binary file
+  * for every some time step
+- [ ] add and re-arrange tests
+- [ ] comparison with analytic solution
+
 Directory Structure
 -------------------
 - doc/ documentation
@@ -9,8 +16,7 @@ Directory Structure
     + simpleini/  [INI file parser](https://github.com/brofield/simpleini)
     + catch.hpp   [catch](https://github.com/philsquared/Catch/) testing framework
   * tests/  tests
-  * examples/ examples to possibly use for presentation (e.g., earth orbiting sun)
-    * png/  where the image files are stored from the examples (not tracked by git)
+- examples/
 
 Documentation
 -------------
