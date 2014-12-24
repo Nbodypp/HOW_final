@@ -51,12 +51,12 @@ int RungeKutta4::step(double t, Particles &p) {
   // update finally
   for (int i = 0; i < p.size(); ++i)
   {
-    p[i].x  += k1[i].vx*dt_/6. + (k2[i].vx + k3[i].vx)*dt_/3. + k4[i].vx*dt_/6.;
-    p[i].y  += k1[i].vy*dt_/6. + (k2[i].vy + k3[i].vy)*dt_/3. + k4[i].vy*dt_/6.;
-    p[i].z  += k1[i].vz*dt_/6. + (k2[i].vz + k3[i].vz)*dt_/3. + k4[i].vz*dt_/6.;
-    p[i].vx += k1[i].ax*dt_/6. + (k2[i].ax + k3[i].ax)*dt_/3. + k4[i].ax*dt_/6.;
-    p[i].vy += k1[i].ay*dt_/6. + (k2[i].ay + k3[i].ay)*dt_/3. + k4[i].ay*dt_/6.;
-    p[i].vz += k1[i].az*dt_/6. + (k2[i].az + k3[i].az)*dt_/3. + k4[i].az*dt_/6.;
+    p[i].x  = p[i].x  + (k1[i].vx + 2*k2[i].vx + 2*k3[i].vx + k4[i].vx)/6.*dt_;
+    p[i].y  = p[i].y  + (k1[i].vy + 2*k2[i].vy + 2*k3[i].vy + k4[i].vy)/6.*dt_;
+    p[i].z  = p[i].z  + (k1[i].vz + 2*k2[i].vz + 2*k3[i].vz + k4[i].vz)/6.*dt_;
+    p[i].vx = p[i].vx + (k1[i].ax + 2*k2[i].ax + 2*k3[i].ax + k4[i].ax)/6.*dt_;
+    p[i].vy = p[i].vy + (k1[i].ay + 2*k2[i].ay + 2*k3[i].ay + k4[i].ay)/6.*dt_;
+    p[i].vz = p[i].vz + (k1[i].az + 2*k2[i].az + 2*k3[i].az + k4[i].az)/6.*dt_;
   }
   return 0;
 }
