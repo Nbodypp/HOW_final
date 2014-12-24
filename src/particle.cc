@@ -21,7 +21,7 @@ Particle::~Particle()
 {}
 
 /** distance between particles */
-double Particle::d(const Particle& p)
+double Particle::d(const Particle& p) const
 {
   return sqrt(pow((p.x-this->x), 2) +
               pow((p.y-this->y), 2) +
@@ -29,14 +29,14 @@ double Particle::d(const Particle& p)
 }
 
 /** velocity of the particle */
-double Particle::v() {
+double Particle::v() const {
   return sqrt(pow((this->vx), 2) +
               pow((this->vy), 2) +
               pow((this->vz), 2));
 }
 
 /** Kinetic energy of the particle */
-double Particle::Ekin() {
+double Particle::Ekin() const {
   return 0.5 * this->mass * pow(this->v(), 2);
 }
 
@@ -54,15 +54,15 @@ void print_particles(const Particles &particles) {
   for (unsigned int i = 0; i < particles.size(); ++i)
   {
     printf("%15.4e %15.4e %15.4e %15.4e %15.4e %15.4e %15.4e %15.4e %15.4e",
-        particles[i]->x,
-        particles[i]->y,
-        particles[i]->z,
-        particles[i]->vx,
-        particles[i]->vy,
-        particles[i]->vz,
-        particles[i]->ax,
-        particles[i]->ay,
-        particles[i]->az);
+        particles[i].x,
+        particles[i].y,
+        particles[i].z,
+        particles[i].vx,
+        particles[i].vy,
+        particles[i].vz,
+        particles[i].ax,
+        particles[i].ay,
+        particles[i].az);
   }
   printf("\n");
 }
@@ -72,7 +72,7 @@ double kinetic_energy(const Particles& particles) {
   double E = 0;
   for (unsigned int i = 0; i < particles.size(); ++i)
   {
-    E += particles[i]->Ekin();
+    E += particles[i].Ekin();
   }
   return E;
 }

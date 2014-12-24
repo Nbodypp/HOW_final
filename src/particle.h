@@ -33,9 +33,9 @@ class Particle {
   double az;  /**< acceleration z */
 
   void print();
-  double d(const Particle &particle);
-  double v();
-  double Ekin();
+  double d(const Particle &particle) const;
+  double v() const;
+  double Ekin() const;
 
  private:
   static const int dimen_ = 3;
@@ -43,9 +43,9 @@ class Particle {
 
 /**
  * @typedef Particles
- * @brief vector of pointers to Particle
+ * @brief vector of Particles
  */
-typedef std::vector<std::unique_ptr<Particle> > Particles;
+typedef std::vector<Particle> Particles;
 
 void print_particles(const Particles &particles);
 double kinetic_energy(const Particles &particles);

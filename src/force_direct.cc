@@ -9,7 +9,7 @@ Force::~Force() {
 }
 
 /** update acceleration of all particles */
-void Force::update_acceleration(const Particles& particles) const
+void Force::update_acceleration(Particles &particles) const
 {
   for (unsigned int i = 0; i < particles.size(); ++i)
   {
@@ -23,14 +23,14 @@ void Force::update_acceleration(const Particles& particles) const
       {
         continue;
       }
-      r = particles[i]->d((*particles[j]));
-      ax += G * particles[j]->mass * (particles[j]->x - particles[i]->x) / pow(r, 3);
-      ay += G * particles[j]->mass * (particles[j]->y - particles[i]->y) / pow(r, 3);
-      az += G * particles[j]->mass * (particles[j]->z - particles[i]->z) / pow(r, 3);
+      r = particles[i].d(particles[j]);
+      ax += G * particles[j].mass * (particles[j].x - particles[i].x) / pow(r, 3);
+      ay += G * particles[j].mass * (particles[j].y - particles[i].y) / pow(r, 3);
+      az += G * particles[j].mass * (particles[j].z - particles[i].z) / pow(r, 3);
     }
-    particles[i]->ax = ax;
-    particles[i]->ay = ay;
-    particles[i]->az = az;
+    particles[i].ax = ax;
+    particles[i].ay = ay;
+    particles[i].az = az;
 
     // Now to add our non-gravitational forces
     for (int i = 0; i < forces_.size(); ++i)

@@ -101,13 +101,13 @@ int main(int argc, char *argv[])
     std::cerr << "#Initializing " << i->pItem << std::endl; 
     tmpmass = atof(ini.GetValue(i->pItem, "mass"));
     tmpradius = atof(ini.GetValue(i->pItem, "radius"));
-    particles.push_back(std::unique_ptr<Particle>(new Particle(tmpmass, tmpradius)));
-    particles.back()->x = atof(ini.GetValue(i->pItem, "x"));
-    particles.back()->y = atof(ini.GetValue(i->pItem, "y"));
-    particles.back()->z = atof(ini.GetValue(i->pItem, "z"));
-    particles.back()->vx = atof(ini.GetValue(i->pItem, "vx"));
-    particles.back()->vy = atof(ini.GetValue(i->pItem, "vy"));
-    particles.back()->vz = atof(ini.GetValue(i->pItem, "vz"));
+    particles.push_back(Particle(tmpmass, tmpradius));
+    particles.back().x = atof(ini.GetValue(i->pItem, "x"));
+    particles.back().y = atof(ini.GetValue(i->pItem, "y"));
+    particles.back().z = atof(ini.GetValue(i->pItem, "z"));
+    particles.back().vx = atof(ini.GetValue(i->pItem, "vx"));
+    particles.back().vy = atof(ini.GetValue(i->pItem, "vy"));
+    particles.back().vz = atof(ini.GetValue(i->pItem, "vz"));
   }
   
   // Setup the force model
