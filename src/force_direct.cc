@@ -24,9 +24,9 @@ void Force::update_acceleration(const Particles& particles) const
         continue;
       }
       r = particles[i]->d((*particles[j]));
-      ax += G_ * particles[j]->mass * (particles[j]->x - particles[i]->x) / pow(r, 3);
-      ay += G_ * particles[j]->mass * (particles[j]->y - particles[i]->y) / pow(r, 3);
-      az += G_ * particles[j]->mass * (particles[j]->z - particles[i]->z) / pow(r, 3);
+      ax += G * particles[j]->mass * (particles[j]->x - particles[i]->x) / pow(r, 3);
+      ay += G * particles[j]->mass * (particles[j]->y - particles[i]->y) / pow(r, 3);
+      az += G * particles[j]->mass * (particles[j]->z - particles[i]->z) / pow(r, 3);
     }
     particles[i]->ax = ax;
     particles[i]->ay = ay;

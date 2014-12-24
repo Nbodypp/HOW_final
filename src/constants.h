@@ -1,11 +1,10 @@
-/** \brief Definition of G, the gravitational constant
-
-    This header file defines G_ to be the value of the gravitational constant, in cgs units
-*/
+/** 
+ * @brief Definition of G, the gravitational constant
+ */
 
 #ifndef CONST_H_
 #define CONST_H_
 
-#define G_ 6.67384e-8 /** G, the gravitational constant, in cgs units */
+extern double G;  //< Gravitational constant
 
 #endif //CONST_H_

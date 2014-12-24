@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <vector>
-#include <typeinfo>
 #include <string.h>
 #include "SimpleIni.h"
 #include "particle.h"
@@ -11,8 +10,9 @@
 #include "integrator.h"
 #include "euler.h"
 #include "leapfrog.h"
+#include "constants.h"
 
-//#include "tempfunctions.h"
+double G;
 
 int main(int argc, char *argv[])
 {
@@ -33,6 +33,8 @@ int main(int argc, char *argv[])
   const double tmax = atof(ini.GetValue("", "tmax"));
   const std::string gravity = ini.GetValue("", "gravity");
   const std::string integrator_name = ini.GetValue("", "integrator");
+  G = atof(ini.GetValue("", "G", "1.0"));
+  printf("#      G    = %15.8e\n", G);
   printf("#     dt    = %15.8f\n", dt);
   printf("#   tmax    = %15.8e\n", tmax);
   printf("#gravity    = %s\n", gravity.c_str());
