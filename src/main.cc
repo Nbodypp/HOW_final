@@ -15,12 +15,13 @@
 
 double G;
 
+// check if input file is valid
 void check_inputfile(CSimpleIniA &ini) {
+  const char *tmp;
+
   // keys to check in the root section
   std::string keys[4] = {
     "timestep", "tmax", "gravity", "integrator"};
-
-  const char *tmp;
   for (int i = 0; i < 4; ++i) {
     tmp = ini.GetValue("", keys[i].c_str());
     if (tmp == NULL) {
@@ -28,9 +29,10 @@ void check_inputfile(CSimpleIniA &ini) {
     }
   }
 
+  int np = 0;  // number of particles
+  // keys to check for every particle (section)
   std::string pkeys[8] = {
     "mass", "radius", "x", "y", "z", "vx", "vy", "vz"};
-  int np = 0;  // number of particles
   CSimpleIniA::TNamesDepend sections;
   ini.GetAllSections(sections);
   for (auto i = sections.begin(); i != sections.end(); ++i)
@@ -58,6 +60,7 @@ void check_inputfile(CSimpleIniA &ini) {
 
 int main(int argc, char *argv[])
 {
+  // verify input file
   if (argc != 2) {
     printf("USAGE: %s <inputfile>\n", argv[0]);
     exit(1);
@@ -72,7 +75,6 @@ int main(int argc, char *argv[])
   }
 
   double tmpmass, tmpradius;
-
   Particles particles;  //vector of pointers to Particle class instances
 
   // get settings
@@ -81,11 +83,11 @@ int main(int argc, char *argv[])
   const std::string gravity = ini.GetValue("", "gravity");
   const std::string integrator_name = ini.GetValue("", "integrator");
   G = atof(ini.GetValue("", "G", "1.0"));
-  printf("#      G    = %15.8e\n", G);
-  printf("#     dt    = %15.8f\n", dt);
-  printf("#   tmax    = %15.8e\n", tmax);
-  printf("#gravity    = %s\n", gravity.c_str());
-  printf("#integrator = %s\n", integrator_name.c_str());
+  fprintf(stderr, "#         G = %15.8e\n", G);
+  fprintf(stderr, "#        dt = %15.8f\n", dt);
+  fprintf(stderr, "#      tmax = %15.8e\n", tmax);
+  fprintf(stderr, "#   gravity = %s\n", gravity.c_str());
+  fprintf(stderr, "#integrator = %s\n", integrator_name.c_str());
 
   // Setup particles
   CSimpleIniA::TNamesDepend sections;
@@ -96,7 +98,7 @@ int main(int argc, char *argv[])
     if (strcmp(i->pItem, "") == 0) {
       continue;
     }
-    std::cout << "#Initializing " << i->pItem << std::endl; 
+    std::cerr << "#Initializing " << i->pItem << std::endl; 
     tmpmass = atof(ini.GetValue(i->pItem, "mass"));
     tmpradius = atof(ini.GetValue(i->pItem, "radius"));
     particles.push_back(std::unique_ptr<Particle>(new Particle(tmpmass, tmpradius)));
@@ -109,28 +111,29 @@ int main(int argc, char *argv[])
   }
   
   // Setup the force model
-  printf("#Setting up a force model\n");
+  std::cerr << "#Setting up a force model" << std::endl;
   Force force;
 
   // Setup the integrator
-  printf("#Setting up an integrator\n");
+  std::cerr << "#Setting up an integrator" << std::endl;
   Integrator *integrator = NULL;
   if (integrator_name.compare("euler") == 0)
   {
-    printf("#Setting up an euler integrator\n");
+    std::cerr << "#Setting up an euler integrator" << std::endl;
     integrator = new Euler(dt, force);
   }
   else if (integrator_name.compare("leapfrog") == 0)
   {
-    printf("#Setting up a leapfrog integrator\n");
+    std::cerr << "#Setting up a leapfrog integrator" << std::endl;
     integrator = new Leapfrog(dt, force);
   }
   if (integrator == NULL)
   {
-    printf("ERROR: integrator %s is not known\n", integrator_name.c_str()); 
+    fprintf(stderr, "ERROR: integrator %s is not known\n",
+            integrator_name.c_str()); 
   }
 
-  printf("#Start integration\n");
+  std::cerr << "#Starting integration" << std::endl;
   double t = 0;
   for (t = 0; t < tmax; t+=dt)
   {
