@@ -2,7 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <vector>
-#include <string.h>
+#include <stdexcept>
+#include <string>
 #include "SimpleIni.h"
 #include "particle.h"
 #include "force.h"
@@ -14,20 +15,66 @@
 
 double G;
 
+void check_inputfile(CSimpleIniA &ini) {
+  // keys to check in the root section
+  std::string keys[4] = {
+    "timestep", "tmax", "gravity", "integrator"};
+
+  const char *tmp;
+  for (int i = 0; i < 4; ++i) {
+    tmp = ini.GetValue("", keys[i].c_str());
+    if (tmp == NULL) {
+      throw std::runtime_error(keys[i] + " does not exist");
+    }
+  }
+
+  std::string pkeys[8] = {
+    "mass", "radius", "x", "y", "z", "vx", "vy", "vz"};
+  int np = 0;  // number of particles
+  CSimpleIniA::TNamesDepend sections;
+  ini.GetAllSections(sections);
+  for (auto i = sections.begin(); i != sections.end(); ++i)
+  {
+    // skip root section -- it's for settings
+    if (strcmp(i->pItem, "") == 0) {
+      continue;
+    }
+    np++;
+    for (int j = 0; j < 8; ++j) {
+      tmp = ini.GetValue(i->pItem, pkeys[j].c_str());
+      try {
+        std::stod(tmp);
+      } catch(const std::exception &e) {
+        char buf[100];
+        sprintf(buf, "%s:%s %s", i->pItem, pkeys[j].c_str(), e.what());
+        throw std::runtime_error(buf);
+      }
+    }
+  }
+  if (np <= 1) {
+    throw std::runtime_error("less than 2 particles found");
+  }
+}
+
 int main(int argc, char *argv[])
 {
   if (argc != 2) {
     printf("USAGE: %s <inputfile>\n", argv[0]);
-    exit(0);
+    exit(1);
   }
   CSimpleIniA ini;
   ini.LoadFile(argv[1]);
+  try {
+    check_inputfile(ini);
+  } catch(const std::exception &e) {
+    std::cerr << "ERROR: invalid input - " << e.what() << std::endl;
+    exit(1);
+  }
+
   double tmpmass, tmpradius;
 
   Particles particles;  //vector of pointers to Particle class instances
 
-  // TODO: verify required sections are there
-  // TODO: verify required keys are there
   // get settings
   const double dt = atof(ini.GetValue("", "timestep"));
   const double tmax = atof(ini.GetValue("", "tmax"));
