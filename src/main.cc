@@ -4,13 +4,16 @@
 #include <vector>
 #include <stdexcept>
 #include <string>
+#include "math.h"
+
 #include "SimpleIni.h"
+
 #include "particle.h"
 #include "force.h"
-#include "math.h"
 #include "integrator.h"
 #include "euler.h"
 #include "leapfrog.h"
+#include "runge-kutta.h"
 #include "constants.h"
 
 double G;
@@ -127,6 +130,10 @@ int main(int argc, char *argv[])
     std::cerr << "#Setting up a leapfrog integrator" << std::endl;
     integrator = new Leapfrog(dt, force);
   }
+  else if (integrator_name.compare("rk4") == 0) {
+    std::cerr << "#Setting up a runge-kutta integrator" << std::endl;
+    integrator = new RungeKutta4(dt, force);
+  }
   if (integrator == NULL)
   {
     fprintf(stderr, "ERROR: integrator %s is not known\n",
@@ -135,6 +142,7 @@ int main(int argc, char *argv[])
 
   std::cerr << "#Starting integration" << std::endl;
   double t = 0;
+  print_particles(particles);
   for (t = 0; t < tmax; t+=dt)
   {
     integrator->step(t, particles);
