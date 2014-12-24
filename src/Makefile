@@ -35,4 +35,4 @@ nbodypp: main.o particle.o  force_direct.o euler.o leapfrog.o
 	$(CXX) $(CFLAGS) -o $@ $^
 
 clean:
-	-rm -rf *.o nbodypp sunEarthMoon
+	-rm -rf *.o nbodypp
