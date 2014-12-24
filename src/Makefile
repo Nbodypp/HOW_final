@@ -5,7 +5,7 @@ testdir=$(srcdir)/tests
 
 INCDIR=-Ivendor -Ivendor/simpleini -I$(srcdir)
 LIBDIR=
-CFLAGS=-Wall -std=c++0x $(INCDIR) $(LIBDIR)
+CFLAGS=-Wall -O3 -std=c++0x $(INCDIR) $(LIBDIR)
 
 .PHONY: clean
 
