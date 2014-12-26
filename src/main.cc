@@ -142,11 +142,11 @@ int main(int argc, char *argv[])
 
   std::cerr << "#Starting integration" << std::endl;
   double t = 0;
-  print_particles(particles);
+  print_particles(particles, std::cout);
   for (t = 0; t < tmax; t+=dt)
   {
     integrator->step(t, particles);
-    print_particles(particles);    // TODO: print to a file
+    print_particles(particles, std::cout);    // TODO: print to a file
   }
 
   // Clean up
