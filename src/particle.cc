@@ -1,6 +1,7 @@
 #include "particle.h"
 #include <stdio.h>
 #include <math.h>
+#include <fstream>
 
 /**
  * Constructor
@@ -51,7 +52,7 @@ void Particle::print()
 
 /** print position, velocity and acceleration of all particles */
 void print_particles(const Particles &particles) {
-  for (unsigned int i = 0; i < particles.size(); ++i)
+  for (int i = 0; i < particles.size(); ++i)
   {
     printf("%15.4e %15.4e %15.4e %15.4e %15.4e %15.4e %15.4e %15.4e %15.4e",
         particles[i].x,
@@ -65,6 +66,21 @@ void print_particles(const Particles &particles) {
         particles[i].az);
   }
   printf("\n");
+}
+
+/** save position, velocity of all particles */
+void save_particles(const Particles &particles, std::ofstream &f) {
+  double buf[6];
+  for (int i = 0; i < particles.size(); ++i)
+  {
+    buf[0] = particles[i].x;
+    buf[1] = particles[i].y;
+    buf[2] = particles[i].z;
+    buf[3] = particles[i].vx;
+    buf[4] = particles[i].vy;
+    buf[5] = particles[i].vz;
+    f.write((char*)&buf, sizeof(buf));
+  }
 }
 
 /** calculate the kinetic energy of the particle */
