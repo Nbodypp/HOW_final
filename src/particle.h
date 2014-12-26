@@ -48,7 +48,7 @@ class Particle {
  */
 typedef std::vector<Particle> Particles;
 
-void print_particles(const Particles &particles);
+void print_particles(const Particles &particles, std::ostream &f);
 void save_particles(const Particles &particles, std::ofstream &f);
 double kinetic_energy(const Particles &particles);
 double potential_energy(const Particles &particles);

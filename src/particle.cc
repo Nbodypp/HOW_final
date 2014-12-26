@@ -51,21 +51,21 @@ void Particle::print()
 }
 
 /** print position, velocity and acceleration of all particles */
-void print_particles(const Particles &particles) {
+void print_particles(const Particles &particles, std::ostream &f) {
   for (int i = 0; i < particles.size(); ++i)
   {
-    printf("%15.4e %15.4e %15.4e %15.4e %15.4e %15.4e %15.4e %15.4e %15.4e",
-        particles[i].x,
-        particles[i].y,
-        particles[i].z,
-        particles[i].vx,
-        particles[i].vy,
-        particles[i].vz,
-        particles[i].ax,
-        particles[i].ay,
-        particles[i].az);
+    f << std::scientific;
+    f << particles[i].x << ' '
+      << particles[i].y << ' '
+      << particles[i].z << ' '
+      << particles[i].vx << ' '
+      << particles[i].vy << ' '
+      << particles[i].vz << ' '
+      << particles[i].ax << ' '
+      << particles[i].ay << ' '
+      << particles[i].az;
   }
-  printf("\n");
+  f << '\n';
 }
 
 /** save position, velocity of all particles */

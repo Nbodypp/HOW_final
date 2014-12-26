@@ -11,7 +11,8 @@ TEST_CASE("Create Particles", "[particle]") {
 
 }
 
-TEST_CASE("Save state to a binary file", "[particle]") {
+TEST_CASE("Save particles state", "[particle]") {
+
   Particles p ({
     Particle(5., 1.),
     Particle(2., 4.),
@@ -21,14 +22,33 @@ TEST_CASE("Save state to a binary file", "[particle]") {
   p[0].vx = 22;
   p[1].y = -30;
   p[2].vz = 6.23e8;
-  std::ofstream f ("test.bin", std::ios::binary);
-  if (f.is_open())
-  {
-    save_particles(p, f);
-    f.close();
+
+  SECTION ("save to a binary file") {
+    std::ofstream f ("test.bin", std::ios::binary);
+    if (f.is_open())
+    {
+      save_particles(p, f);
+      f.close();
+    }
+    else {
+      std::cerr << "error opening a file\n";
+    }
   }
-  else {
-    std::cerr << "error opening a file\n";
+
+  SECTION ("write to stdout") {
+    print_particles(p, std::cout);
+  }
+
+  SECTION ("write to an ascii flle") {
+    std::ofstream f ("test.dat");
+    if (f.is_open())
+    {
+      print_particles(p, f);
+      f.close();
+    }
+    else {
+      std::cerr << "error opening a file\n";
+    }
   }
 }
 
