@@ -1,6 +1,8 @@
 Nbodypp
 =========
 
+[![Build Status](https://travis-ci.org/Nbodypp/HOW_final.svg?branch=master)](https://travis-ci.org/Nbodypp/HOW_final)
+
 - [ ] more examples - drag force (additional force example), ...
 - [ ] output tools
   * write to a binary file
