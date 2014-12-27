@@ -1,0 +1,19 @@
+#include "external_potential.h"
+#include "math.h"
+#include "../constants.h"
+
+void external_potential(Particles& particles)
+{
+
+  const double central_pseudo_mass = 2.0e33; //in g
+  const double central_location[3] = {0.0,0.0,0.0}; //in cgs
+  
+  for(unsigned int i = 0; i<particles.size(); ++i)
+    {
+      const double r = sqrt( (particles[i].x - central_location[0])*(particles[i].x - central_location[0]) + (particles[i].y - central_location[1])*(particles[i].y - central_location[1]) + (particles[i].z - central_location[2])*(particles[i].z - central_location[2]) );
+      
+      particles[i].ax += G * central_pseudo_mass * (particles[i].x - central_location[0]) / pow(r, 3);
+      particles[i].ay += G * central_pseudo_mass * (particles[i].y - central_location[1]) / pow(r, 3);
+      particles[i].az += G * central_pseudo_mass * (particles[i].z - central_location[2]) / pow(r, 3);
+    }
+}
