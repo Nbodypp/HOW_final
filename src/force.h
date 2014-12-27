@@ -11,7 +11,7 @@
  * @typedef ForceFunc
  * @brief function that adds non-gravitational forces
  */
-typedef void (*ForceFunc)(const Particles&);
+typedef void (*ForceFunc)(Particles&);
 
 class Force {
  public:
