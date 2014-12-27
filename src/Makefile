@@ -19,14 +19,8 @@ doc: ../doc/Doxyfile
 %.o: %.cc
 	$(CXX) -c $(CFLAGS) -o $@ $^
 
-testParticle: particle.o tests/testParticle.o
-	$(CXX) $(CFLAGS) -o $(testdir)/testParticle $^
-
-testForce: particle.o force_direct.o tests/testForce.o
-	$(CXX) $(CFLAGS) -o $(testdir)/testForce $^
-
-testCollision: particle.o collision.o tests/testCollision.o
-	$(CXX) $(CFLAGS) -o $(testdir)/testCollision $^
+testall: $(addprefix $(testdir)/, test_main.o testParticle.o testForce.o testCollision.o) particle.o force_direct.o collision.o
+	$(CXX) $(CFLAGS) -o $@ $^
 
 testEuler_SI: particle.o force_direct.o euler_semi_implicit.o tests/testEuler_SI.o
 	$(CXX) $(CFLAGS) -o $(testdir)/testEuler_SI $^
@@ -35,4 +29,4 @@ nbodypp: main.o particle.o  force_direct.o euler.o leapfrog.o runge-kutta.o
 	$(CXX) $(CFLAGS) -o $@ $^
 
 clean:
-	-rm -rf *.o nbodypp
+	-rm -rf *.o nbodypp testall tests/*.o
