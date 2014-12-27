@@ -1,12 +1,9 @@
-#include <stdio.h>
-#include <vector>
 #include "collision.h"
 #include "particle.h"
 
-/** Checks all particles to see if a collision has occured */
+/** Returns non-zero value if any collision has occured */
 int collision_check_all(const Particles& particles)
 {
-  /* Keeps track of whether a collision happened.  0 for no, nonzero for yes*/
   int has_collision_happened = 0; 
   double r;
   
@@ -19,7 +16,6 @@ int collision_check_all(const Particles& particles)
           if( (particles[i]->radius + particles[j]->radius) > r) 
             {
               has_collision_happened = 1;
-              printf("#COLLISION OCCURRED!\n");
             }
         }
     }
