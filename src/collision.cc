@@ -11,9 +11,9 @@ int collision_check_all(const Particles& particles)
     {
       for (unsigned int j = 0; j < i; ++j)
         {
-          r = particles[i]->d((*particles[j]));
+          r = particles[i].d((particles[j]));
           
-          if( (particles[i]->radius + particles[j]->radius) > r) 
+          if( (particles[i].radius + particles[j].radius) > r) 
             {
               has_collision_happened = 1;
             }
