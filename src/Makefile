@@ -1,9 +1,8 @@
-projectdir=$(shell cd ..; pwd)
-docdir=$(projectdir)/doc
-srcdir=$(projectdir)/src
-testdir=$(srcdir)/tests
+# projectdir=$(shell cd ..; pwd)
+docdir=../doc
+testdir=./tests
 
-INCDIR=-Ivendor -Ivendor/simpleini -I$(srcdir)
+INCDIR=-Ivendor -Ivendor/simpleini -I.
 LIBDIR=
 CFLAGS=-Wall -O3 -std=c++0x $(INCDIR) $(LIBDIR)
 
