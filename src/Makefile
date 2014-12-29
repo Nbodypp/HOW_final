@@ -1,6 +1,7 @@
 # projectdir=$(shell cd ..; pwd)
 docdir=../doc
 testdir=./tests
+extradir=./extra_forces
 
 INCDIR=-Ivendor -Ivendor/simpleini -I.
 LIBDIR=
@@ -25,6 +26,9 @@ testEuler_SI: particle.o force_direct.o euler_semi_implicit.o tests/testEuler_SI
 	$(CXX) $(CFLAGS) -o $(testdir)/testEuler_SI $^
 
 nbodypp: main.o particle.o  force_direct.o euler.o leapfrog.o runge-kutta.o
+	$(CXX) $(CFLAGS) -o $@ $^
+
+earthmoon: main.2.o particle.o force_direct.o euler.o leapfrog.o runge-kutta.o $(addprefix $(extradir)/, external_central_potential.o)
 	$(CXX) $(CFLAGS) -o $@ $^
 
 clean:

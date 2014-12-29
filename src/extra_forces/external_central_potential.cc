@@ -7,11 +7,11 @@ void external_potential(Particles& particles)
 {
 
   /*Central location of the force field*/
-  const double central_location[3] = {0.0,0.0,0.0}; //in cm
+  const double central_location[3] = {0.0,0.0,0.0};
 
   /*The "mass" of the imaginary object located at the central 
    location of the force field.  Used to define field strength.*/
-  const double central_pseudo_mass = 2.0e33; //in g
+  const double central_pseudo_mass = 1.;
   
   /*Updates the acceleration of each particles*/
   for(unsigned int i = 0; i<particles.size(); ++i)
