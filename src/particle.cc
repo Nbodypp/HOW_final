@@ -63,7 +63,7 @@ void print_particles(const Particles &particles, std::ostream &f) {
       << p.vz << ' '
       << p.ax << ' '
       << p.ay << ' '
-      << p.az;
+      << p.az << ' ';
   }
   f << '\n';
 }
