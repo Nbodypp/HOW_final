@@ -9,6 +9,10 @@ int collision_check_all(const Particles& particles)
   {
     for (auto const &p2 : particles)
     {
+      if (&p2 == &p1)
+      {
+        continue;
+      }
       if( p1.radius + p2.radius > p1.d(p2)) 
       {
         has_collision_happened = 1;
