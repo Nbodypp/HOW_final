@@ -119,7 +119,7 @@ int main(int argc, char *argv[])
   Force force;
 
   // Setup extra force(s)
-  force.add_force(&external_potential)
+  force.add_force(&external_potential);
 
   // Setup the integrator
   std::cerr << "#Setting up an integrator" << std::endl;
