@@ -29,7 +29,7 @@ class NbodyCanvas(scene.SceneCanvas):
         self.scale = 10.
         self.meshes = []
         self.d = data
-        self.np = self.d.shape[1]/3  # number of particles
+        self.np = self.d.shape[1]/9  # number of particles
         self.nt = self.d.shape[0]  # number of timesteps
 
         # add particles for the first time
