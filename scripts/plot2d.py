@@ -6,7 +6,7 @@ parser = argparse.ArgumentParser(
         description='Plot orbit data on x-y, y-z, x-z plane')
 parser.add_argument('filename', type=str)
 parser.add_argument('-s', '--scale', type=float,
-                    help='scale length')
+                    help='scale length', default=1.)
 args = parser.parse_args()
 
 d = pl.loadtxt(args.filename).T
