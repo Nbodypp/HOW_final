@@ -12,11 +12,11 @@ int Leapfrog::step(double t, Particles& particles) {
 
   force_.update_acceleration(particles);
   advance_vel(0.5*dt_, particles);
-  for (unsigned int i = 0; i < particles.size(); ++i)
+  for (auto &ptmp : particles)
   {
-    particles[i].x += dt_ * particles[i].vx;
-    particles[i].y += dt_ * particles[i].vy;
-    particles[i].z += dt_ * particles[i].vz;
+    ptmp.x += dt_ * ptmp.vx;
+    ptmp.y += dt_ * ptmp.vy;
+    ptmp.z += dt_ * ptmp.vz;
   }
   force_.update_acceleration(particles);
   advance_vel(0.5*dt_, particles);  // sync vel with position
@@ -25,10 +25,10 @@ int Leapfrog::step(double t, Particles& particles) {
 
 // advance velocity by dt
 void Leapfrog::advance_vel(double dt, Particles& particles) {
-  for (unsigned int i = 0; i < particles.size(); ++i)
+  for (auto &ptmp : particles)
   {
-    particles[i].vx += dt * particles[i].ax;
-    particles[i].vy += dt * particles[i].ay;
-    particles[i].vz += dt * particles[i].az;
+    ptmp.vx += dt * ptmp.ax;
+    ptmp.vy += dt * ptmp.ay;
+    ptmp.vz += dt * ptmp.az;
   }
 }

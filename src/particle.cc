@@ -52,18 +52,18 @@ void Particle::print()
 
 /** print position, velocity and acceleration of all particles */
 void print_particles(const Particles &particles, std::ostream &f) {
-  for (int i = 0; i < particles.size(); ++i)
+  for (auto &p : particles)
   {
     f << std::scientific;
-    f << particles[i].x << ' '
-      << particles[i].y << ' '
-      << particles[i].z << ' '
-      << particles[i].vx << ' '
-      << particles[i].vy << ' '
-      << particles[i].vz << ' '
-      << particles[i].ax << ' '
-      << particles[i].ay << ' '
-      << particles[i].az;
+    f << p.x << ' '
+      << p.y << ' '
+      << p.z << ' '
+      << p.vx << ' '
+      << p.vy << ' '
+      << p.vz << ' '
+      << p.ax << ' '
+      << p.ay << ' '
+      << p.az;
   }
   f << '\n';
 }
@@ -71,14 +71,14 @@ void print_particles(const Particles &particles, std::ostream &f) {
 /** save position, velocity of all particles */
 void save_particles(const Particles &particles, std::ofstream &f) {
   double buf[6];
-  for (int i = 0; i < particles.size(); ++i)
+  for (auto &p : particles)
   {
-    buf[0] = particles[i].x;
-    buf[1] = particles[i].y;
-    buf[2] = particles[i].z;
-    buf[3] = particles[i].vx;
-    buf[4] = particles[i].vy;
-    buf[5] = particles[i].vz;
+    buf[0] = p.x;
+    buf[1] = p.y;
+    buf[2] = p.z;
+    buf[3] = p.vx;
+    buf[4] = p.vy;
+    buf[5] = p.vz;
     f.write((char*)&buf, sizeof(buf));
   }
 }
@@ -86,9 +86,9 @@ void save_particles(const Particles &particles, std::ofstream &f) {
 /** calculate the kinetic energy of the particle */
 double kinetic_energy(const Particles& particles) {
   double E = 0;
-  for (unsigned int i = 0; i < particles.size(); ++i)
+  for (auto const &p : particles)
   {
-    E += particles[i].Ekin();
+    E += p.Ekin();
   }
   return E;
 }

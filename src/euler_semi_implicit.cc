@@ -13,21 +13,19 @@ Euler_SI::~Euler_SI() {
 }
 
 /** Step particles' position and velocity */
-int Euler_SI::step(double t, const Particles& particles) {
+int Euler_SI::step(double t, Particles& particles) {
 
   force_.update_acceleration(particles);
-  for (unsigned int i = 0; i < particles.size(); ++i)
+  for (auto &p : particles)
   {
     //Calculate velocity
-    particles[i]->vx += dt_ * particles[i]->ax;
-    particles[i]->vy += dt_ * particles[i]->ay;
-    particles[i]->vz += dt_ * particles[i]->az;
-
+    p.vx += dt_ * p.ax;
+    p.vy += dt_ * p.ay;
+    p.vz += dt_ * p.az;
     //Calculate position using new, updated velocity
-    particles[i]->x += dt_ * particles[i]->vx;
-    particles[i]->y += dt_ * particles[i]->vy;
-    particles[i]->z += dt_ * particles[i]->vz;
-
+    p.x += dt_ * p.vx;
+    p.y += dt_ * p.vy;
+    p.z += dt_ * p.vz;
   }
   return 0;
 }

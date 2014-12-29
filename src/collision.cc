@@ -4,21 +4,16 @@
 /** Returns non-zero value if any collision has occured */
 int collision_check_all(const Particles& particles)
 {
-  int has_collision_happened = 0; 
-  double r;
-  
-  for (unsigned int i = 0; i < particles.size(); ++i)
+  int has_collision_happened = 0;
+  for (auto const &p1 : particles)
+  {
+    for (auto const &p2 : particles)
     {
-      for (unsigned int j = 0; j < i; ++j)
-        {
-          r = particles[i].d((particles[j]));
-          
-          if( (particles[i].radius + particles[j].radius) > r) 
-            {
-              has_collision_happened = 1;
-            }
-        }
+      if( p1.radius + p2.radius > p1.d(p2)) 
+      {
+        has_collision_happened = 1;
+      }
     }
-  
+  }
   return has_collision_happened;
 }

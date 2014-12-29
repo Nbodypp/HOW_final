@@ -16,40 +16,40 @@ int RungeKutta4::step(double t, Particles &p) {
   k1 = p;
   force_.update_acceleration(k1);
   k2 = k1;
-  for (int i = 0; i < k2.size(); ++i)
+  for (auto &ptmp : k2)
   {
-    k2[i].x  += k2[i].vx * dt_ * 0.5;
-    k2[i].y  += k2[i].vy * dt_ * 0.5;
-    k2[i].z  += k2[i].vz * dt_ * 0.5;
-    k2[i].vx += k2[i].ax * dt_ * 0.5;
-    k2[i].vy += k2[i].ay * dt_ * 0.5;
-    k2[i].vz += k2[i].az * dt_ * 0.5;
+    ptmp.x  += ptmp.vx * dt_ * 0.5;
+    ptmp.y  += ptmp.vy * dt_ * 0.5;
+    ptmp.z  += ptmp.vz * dt_ * 0.5;
+    ptmp.vx += ptmp.ax * dt_ * 0.5;
+    ptmp.vy += ptmp.ay * dt_ * 0.5;
+    ptmp.vz += ptmp.az * dt_ * 0.5;
   }
   force_.update_acceleration(k2);
   k3 = k2;
-  for (int i = 0; i < k3.size(); ++i)
+  for (auto &ptmp : k3)
   {
-    k3[i].x  += k3[i].vx * dt_ * 0.5;
-    k3[i].y  += k3[i].vy * dt_ * 0.5;
-    k3[i].z  += k3[i].vz * dt_ * 0.5;
-    k3[i].vx += k3[i].ax * dt_ * 0.5;
-    k3[i].vy += k3[i].ay * dt_ * 0.5;
-    k3[i].vz += k3[i].az * dt_ * 0.5;
+    ptmp.x  += ptmp.vx * dt_ * 0.5;
+    ptmp.y  += ptmp.vy * dt_ * 0.5;
+    ptmp.z  += ptmp.vz * dt_ * 0.5;
+    ptmp.vx += ptmp.ax * dt_ * 0.5;
+    ptmp.vy += ptmp.ay * dt_ * 0.5;
+    ptmp.vz += ptmp.az * dt_ * 0.5;
   }
   force_.update_acceleration(k3);
   k4 = k3;
-  for (int i = 0; i < k4.size(); ++i)
+  for (auto &ptmp : k4)
   {
-    k4[i].x  += k4[i].vx * dt_;
-    k4[i].y  += k4[i].vy * dt_;
-    k4[i].z  += k4[i].vz * dt_;
-    k4[i].vx += k4[i].ax * dt_;
-    k4[i].vy += k4[i].ay * dt_;
-    k4[i].vz += k4[i].az * dt_;
+    ptmp.x  += ptmp.vx * dt_;
+    ptmp.y  += ptmp.vy * dt_;
+    ptmp.z  += ptmp.vz * dt_;
+    ptmp.vx += ptmp.ax * dt_;
+    ptmp.vy += ptmp.ay * dt_;
+    ptmp.vz += ptmp.az * dt_;
   }
   force_.update_acceleration(k4);
   // update finally
-  for (int i = 0; i < p.size(); ++i)
+  for (auto i = 0; i < p.size(); ++i)
   {
     p[i].x  = p[i].x  + (k1[i].vx + 2*k2[i].vx + 2*k3[i].vx + k4[i].vx)/6.*dt_;
     p[i].y  = p[i].y  + (k1[i].vy + 2*k2[i].vy + 2*k3[i].vy + k4[i].vy)/6.*dt_;

@@ -17,7 +17,7 @@ class Euler_SI : public Integrator {
  public:
   Euler_SI(double dt,const Force &force);
   ~Euler_SI();
-  int step(double t, const Particles& particles);
+  int step(double t, Particles& particles);
  private:
   const double dt_;       // timestep
   const Force &force_;    // Force model
