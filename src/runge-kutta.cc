@@ -49,7 +49,7 @@ int RungeKutta4::step(double t, Particles &p) {
   }
   force_.update_acceleration(k4);
   // update finally
-  for (auto i = 0; i < p.size(); ++i)
+  for (Particles::size_type i = 0; i < p.size(); ++i)
   {
     p[i].x  = p[i].x  + (k1[i].vx + 2*k2[i].vx + 2*k3[i].vx + k4[i].vx)/6.*dt_;
     p[i].y  = p[i].y  + (k1[i].vy + 2*k2[i].vy + 2*k3[i].vy + k4[i].vy)/6.*dt_;
