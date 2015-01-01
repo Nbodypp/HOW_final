@@ -15,7 +15,6 @@
 #include "leapfrog.h"
 #include "runge-kutta.h"
 #include "constants.h"
-#include "extra_forces/external_potential.h"
 
 double G;
 
