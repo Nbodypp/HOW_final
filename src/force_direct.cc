@@ -29,7 +29,6 @@ void Force::update_acceleration(Particles &particles) const
       az += p2.mass * (p2.z - p1.z) / pow(r, 3);
     }
     p1.ax = G * ax;
-    //printf("   direct %lf\n",ax);
     p1.ay = G * ay;
     p1.az = G * az;
 
