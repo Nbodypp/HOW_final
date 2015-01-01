@@ -1,3 +1,5 @@
+#Plots the orbit of the moon and the earth around the pseudo-sun
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -7,4 +9,4 @@ moon = np.loadtxt("run.dat", usecols=(9,10),unpack=True)
 plt.plot(earth[0],earth[1],c='green')
 plt.plot(moon[0],moon[1],c='black')
 
-plt.show()
+plt.savefig("png/earthmoon.orbit.png")

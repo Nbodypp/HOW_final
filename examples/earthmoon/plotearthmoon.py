@@ -1,3 +1,7 @@
+#This is supposed to show the Earth and the Moon orbiting relative to each other, centered on their center of mass
+#and then an arrow is drawn showing the direction towards the pseudo-sun
+#but I haven't gotten the simulation to work properly yet so this is as yet untested
+
 import numpy as np
 import matplotlib.pyplot as plt
 

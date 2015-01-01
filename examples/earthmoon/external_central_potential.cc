@@ -11,7 +11,7 @@ void external_potential(Particles& particles)
 
   /*The "mass" of the imaginary object located at the central 
    location of the force field.  Used to define field strength.*/
-  const double central_pseudo_mass = 1.4e33; //cgs
+  const double central_pseudo_mass = 1.99e33; //cgs
   //const double central_pseudo_mass = 1.e40;
   
   /*Updates the acceleration of each particles*/
