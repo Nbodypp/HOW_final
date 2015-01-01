@@ -15,7 +15,7 @@
 #include "leapfrog.h"
 #include "runge-kutta.h"
 #include "constants.h"
-#include "extra_forces/external_potential.h"
+#include "external_potential.h"
 
 double G;
 
@@ -117,6 +117,9 @@ int main(int argc, char *argv[])
   // Setup the force model
   std::cerr << "#Setting up a force model" << std::endl;
   Force force;
+
+  // Setup extra force(s)
+  force.add_force(&external_potential);
 
   // Setup the integrator
   std::cerr << "#Setting up an integrator" << std::endl;
