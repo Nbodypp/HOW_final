@@ -8,24 +8,25 @@
 
 double G = 1;
 
-void gravity(Particles &particles) {
-  double r;
-  double M = 1.;
+
+void dragforce(Particles &particles) {
+  double k = 0.1;
   for (auto &p : particles) {
-    r = sqrt(pow(p.x, 2) + pow(p.y, 2) + pow(p.z, 2));
-    p.ax += G*M*(-p.x) / pow(r,3);
-    p.ay += G*M*(-p.y) / pow(r,3);
-    p.az += G*M*(-p.z) / pow(r,3);
+    p.ax -= k * p.vx;
+    p.ay -= k * p.vy;
+    p.az -= k * p.vz;
   }
 }
 
 int main(int argc, char *argv[])
 {
-  Particles p (2, Particle(0, 0));  // two test particles
-  p[0].x = 1.;
-  p[0].vy = 1.;
-  p[1].x = 2.;
-  p[1].vy = 0.5;
+
+  Particles p ({
+    Particle(1, 0),
+    Particle(0, 0)  // test particle
+    });
+  p[1].x = 1.;
+  p[1].vy = 1.;
   
   double dt = 0.01;
   double t = 0;
@@ -33,7 +34,7 @@ int main(int argc, char *argv[])
 
   Force force;
   Leapfrog integrator (dt, force);
-  force.add_force(gravity);
+  force.add_force(dragforce);
 
   print_particles(p, std::cout);
   for (t = 0; t < tmax; t+=dt)
