@@ -147,8 +147,8 @@ int main(int argc, char *argv[])
   Particles p (50, Particle(0, 0));  // vector of 50 Particles
   
   Force force;
+  force.add_force(&dragforce);
   Leapfrog integrator (dt, force);
-  integrator.add_force(&dragforce);
   ...
 }
 ```
