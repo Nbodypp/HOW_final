@@ -5,10 +5,10 @@
 #include "force.h"
 #include "euler_semi_implicit.h"
 
+double G = 1.;
 
 TEST_CASE("Euler Semi Implicit", "[EulerSI]")
 {
-  G = 1.;
   //Create two particles
   Particles particles ({
     Particle (1e8, 1.),
