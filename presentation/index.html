@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style type="text/css">
+      @import url(http://fonts.googleapis.com/css?family=Londrina+Solid);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      @import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+      body, h2, h3 { font-family: 'Open Sans', sans-serif; }
+      h1 {
+        /*font-family: 'Yanone Kaffeesatz';*/
+        font-family: "Gotham", 'Londrina Solid', cursive;
+        font-weight: normal;
+        text-shadow: 0px 0px 6px rgba(0,0,0,0.2);
+      }
+      .remark-slide-content {
+      }
+      .remark-slide-content h1 {
+        font-size: 80px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        padding-left: 20px;
+        background-color: #333333;
+        color: #ff6600;
+        border-radius: 10px;
+      }
+      .remark-slide-content h2, h3 {
+        margin-top: 15px;
+        margin-bottom: 5px;
+      }
+      .remark-slide-content ul {
+        margin: 5px;
+      }
+      code {
+        -moz-border-radius: 5px;
+        -web-border-radius: 5px;
+        background: #e7e8e2;
+        border-radius: 5px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1 {
+        font-size: 120px;
+        text-shadow: 0 1px 0 #ccc,
+                 0 2px 0 #c9c9c9,
+                 0 3px 0 #bbb,
+                 0 4px 0 #b9b9b9,
+                 0 5px 0 #aaa,
+                 0 6px 1px rgba(0,0,0,.1),
+                 0 0 5px rgba(0,0,0,.1),
+                 0 1px 3px rgba(0,0,0,.3),
+                 0 3px 5px rgba(0,0,0,.2),
+                 0 5px 10px rgba(0,0,0,.25),
+                 0 20px 20px rgba(0,0,0,.15);
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle, inverse
+
+# Nbody++
+
+<br/>
+
+collisional N-body dynamics code from scratch
+
+Cole Holcomb, Semyeong Oh, and Joshua Wallace
+
+---
+
+# Introduction
+
+---
+
+# Core Classes
+
+## Particle
+- has mass, radius, position, velocity, and acceleration
+- updated every time step
+
+```c++
+typedef std::vector<Particle> Particles;
+```
+
+## Force
+- updates acceleration
+- gravity + (user-specified) additional forces
+
+## Integrator
+- virtual class subclassed for different integrator scheme
+---
+
+# Using input files
+
+```ini
+; Nbodypp test input configuration file
+
+timestep = 0.01
+tmax = 1
+gravity = direct
+integrator = euler
+output = result.dat
+
+[star]
+mass = 1
+radius = 1
+x = 0
+y = 0
+z = 0
+vx = 0
+vy = 0
+vz = 0
+
+...
+
+```
+
+---
+
+# Solve your _own_ problem
+
+```c++
+#include <iostream>
+#include "particle.h"
+#include "force.h"
+#include "leapfrog.h"
+#include "constants.h"
+
+// Set G in appropriate units
+double G = 1;    // G must be global
+
+int main(int argc, char *argv[])
+{
+  Particles p ({
+    Particle (1., 0.),        // star
+    Particle (0., 0.)  // planet
+    });
+
+  // All particles are initialized with x, y, z, vx, vy, vz = 0
+  // Specify initial conditions
+  p[1].x = 1.;
+  p[1].vy = 1.;
+```
+
+---
+
+# Solve your _own_ problem
+
+
+```c++
+  double dt = 0.01;
+  double t = 0;
+  double tmax = 1.;
+
+  Force force;
+  Leapfrog integrator (dt, force);
+  integrator.add_force(&dragforce);
+
+  print_particles(p, std::cout);
+  for (t = 0; t < tmax; t+=dt)
+  {
+    integrator.step(t, p);
+    print_particles(p, std::cout);
+  }
+  return 0;
+}
+```
+
+Addtional forces: drag force, ...
+
+```c++
+void dragforce(Particles &particles);
+```
+
+---
+
+# Files
+
+```
+|- src/
+|   *.cc, *.h, Makefile
+|   tests/
+|- scripts/
+|   plot2d.py
+|   vis.py
+|-examples/
+|- README.md
+```
+
+---
+
+# Example 1:
+
+---
+
+# Example 2:
+
+---
+
+# Plans
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create({
+        highlightStyle: 'zenburn'
+      });
+    </script>
+  </body>
+</html>
