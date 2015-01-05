@@ -3,7 +3,7 @@ CFLAGS=-Wall -O3 -std=c++0x $(INCDIR)
 
 .PHONY: all
 
-all: tidal_striping
+all: tidal_stripping
 
 %.o: %.cc
 	$(CXX) -c $(CFLAGS) -o $@ $^
