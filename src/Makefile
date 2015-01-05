@@ -21,8 +21,11 @@ doc: ../doc/Doxyfile
 runtest: $(addprefix $(testdir)/, test_main.o testParticle.o testForce.o testCollision.o) particle.o force_direct.o collision.o
 	$(CXX) $(CFLAGS) -o $@ $^
 
-testEuler_SI: particle.o force_direct.o euler_semi_implicit.o tests/testEuler_SI.o tests/test_main.o
+testEuler_SI: particle.o force_direct.o euler_semi_implicit.o $(testdir)/testEuler_SI.o $(testdir)/test_main.o
 	$(CXX) $(CFLAGS) -o $(testdir)/testEuler_SI $^
+
+testLeapfrog: particle.o force_direct.o leapfrog.o $(testdir)/testLeapfrog.o $(testdir)/test_main.o
+	$(CXX) $(CFLAGS) -o $(testdir)/testLeapfrog $^
 
 nbodypp: main.o particle.o  force_direct.o euler.o leapfrog.o runge-kutta.o
 	$(CXX) $(CFLAGS) -o $@ $^

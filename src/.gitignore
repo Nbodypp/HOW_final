@@ -3,6 +3,7 @@ sunEarthMoon
 testParticle
 testCollision
 testEuler_SI
+testLeapfrog
 .*un~
 
 *~
