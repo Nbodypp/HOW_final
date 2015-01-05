@@ -5,6 +5,7 @@
 #include "force.h"
 #include "leapfrog.h"
 
+double G = 1.;
 
 TEST_CASE("Leapfrog_with_particles", "[Leapfrog]")
 {
@@ -34,6 +35,7 @@ TEST_CASE("Leapfrog_with_particles", "[Leapfrog]")
   particles[1].vy=0.;
   particles[1].vz=1.;
 
+
   Force force;
   Integrator *integrator = NULL;
   integrator = new Leapfrog(1., force);
@@ -41,7 +43,9 @@ TEST_CASE("Leapfrog_with_particles", "[Leapfrog]")
   REQUIRE_FALSE(integrator == NULL);
 
   int check;
+
   check = integrator->step(0, particles);
+
   REQUIRE(check == 0);
 
   REQUIRE(particles[0].vx == 0.0);
@@ -61,4 +65,7 @@ TEST_CASE("Leapfrog_with_particles", "[Leapfrog]")
   REQUIRE(particles[1].z == 1.125);
 
   delete integrator;
+
 }
+
+

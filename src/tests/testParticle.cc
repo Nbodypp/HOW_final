@@ -3,14 +3,15 @@
 
 #include "particle.h"
 
-
 TEST_CASE("Create Particles", "[particle]") {
   Particle particle(5., 1.);
   REQUIRE(particle.mass == 5.);
   REQUIRE(particle.radius == 1.);
+
 }
 
 TEST_CASE("Save particles state", "[particle]") {
+
   Particles p ({
     Particle(5., 1.),
     Particle(2., 4.),
@@ -23,7 +24,8 @@ TEST_CASE("Save particles state", "[particle]") {
 
   SECTION ("save to a binary file") {
     std::ofstream f ("test.bin", std::ios::binary);
-    if (f.is_open()) {
+    if (f.is_open())
+    {
       save_particles(p, f);
       f.close();
     }
@@ -38,7 +40,8 @@ TEST_CASE("Save particles state", "[particle]") {
 
   SECTION ("write to an ascii flle") {
     std::ofstream f ("test.dat");
-    if (f.is_open()) {
+    if (f.is_open())
+    {
       print_particles(p, f);
       f.close();
     }
