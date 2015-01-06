@@ -9,11 +9,11 @@ double G = 1;
 int main(int argc, char *argv[])
 {
   Particles p ({
-      Particle (1., 0.),        // Sun
-      Particle (1.65956463e-7, 0.), // Mercury
-      Particle (2.44699613e-6, 0.), // Venus
-      Particle (3.01473e-6, 0.),  // Earth
-      Particle (3.22604696e-7, 0.) // Mars
+    Particle (1., 0.),        // Sun
+    Particle (1.65956463e-7, 0.), // Mercury
+    Particle (2.44699613e-6, 0.), // Venus
+    Particle (3.01473e-6, 0.),  // Earth
+    Particle (3.22604696e-7, 0.) // Mars
     });
 
   p[1].x = 0.1127656;
@@ -37,10 +37,9 @@ int main(int argc, char *argv[])
   Leapfrog integrator (dt, force);
   print_particles(p, std::cout);
   int counter = 0;
-  for (t = 0; t < tmax; t+=dt)
-  {
+  for (t = 0; t < tmax; t+=dt) {
     integrator.step(t, p);
-    if(counter % 12 == 0){
+    if(counter % 12 == 0) {
       print_particles(p, std::cout);
     }
     counter++;
