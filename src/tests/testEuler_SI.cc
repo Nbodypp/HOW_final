@@ -1,15 +1,14 @@
 #include "catch.hpp"
 
-#include "../constants.h"
+#include "constants.h"
 #include "particle.h"
 #include "force.h"
 #include "euler_semi_implicit.h"
 
-double G = 1.;
 
 TEST_CASE("Euler Semi Implicit", "[EulerSI]")
 {
-  //Create two particles
+  // Create two particles
   Particles particles ({
     Particle (1e8, 1.),
     Particle (2e8, 1.)});
@@ -36,7 +35,6 @@ TEST_CASE("Euler Semi Implicit", "[EulerSI]")
   particles[1].vy=0.;
   particles[1].vz=0.;
 
-
   Force force;
   Integrator *integrator = NULL;
   integrator = new Euler_SI(1., force);
@@ -44,7 +42,6 @@ TEST_CASE("Euler Semi Implicit", "[EulerSI]")
   REQUIRE_FALSE(integrator == NULL);
 
   int check;
-
   check = integrator->step(0, particles);
 
   REQUIRE(check == 0);
@@ -66,5 +63,4 @@ TEST_CASE("Euler Semi Implicit", "[EulerSI]")
   REQUIRE(particles[1].z == -1.0  + z_0);
 
   delete integrator;
-
 }
