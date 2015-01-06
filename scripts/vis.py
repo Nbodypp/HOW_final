@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 Script to visualize N-body system using OpenGL
 
