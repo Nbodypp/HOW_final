@@ -51,8 +51,7 @@ typedef std::vector<Particle> Particles;
 
 void print_particles(const Particles &particles, std::ostream &f);
 void save_particles(const Particles &particles, std::ofstream &f);
-double kinetic_energy(const Particles &particles);
-double potential_energy(const Particles &particles);
+double potential(const Particles &particles, const Particles::size_type i);
 
 #endif  // PARTICLE_H_
 

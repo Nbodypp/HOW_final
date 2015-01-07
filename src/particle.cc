@@ -1,4 +1,5 @@
 #include "particle.h"
+#include "constants.h"
 #include <stdio.h>
 #include <math.h>
 #include <fstream>
@@ -63,7 +64,7 @@ void Particle::print() {
  * @param f output stream
  */
 void print_particles(const Particles &particles, std::ostream &f) {
-  for (auto &p : particles) {
+  for (const auto &p : particles) {
     f << std::scientific;
     f << p.x << ' '
       << p.y << ' '
@@ -85,7 +86,7 @@ void print_particles(const Particles &particles, std::ostream &f) {
  */
 void save_particles(const Particles &particles, std::ofstream &f) {
   double buf[6];
-  for (auto &p : particles) {
+  for (const auto &p : particles) {
     buf[0] = p.x;
     buf[1] = p.y;
     buf[2] = p.z;
@@ -96,19 +97,19 @@ void save_particles(const Particles &particles, std::ofstream &f) {
   }
 }
 
-/** calculate the kinetic energy of the particle */
-double kinetic_energy(const Particles& particles) {
+/**
+ * calculate the potential of particle i given the configuration
+ * @param particles particles
+ * @param i zero-based index of the particle
+ */
+double potential(const Particles& particles, const Particles::size_type i) {
   double E = 0;
-  for (auto const &p : particles) {
-    E += p.Ekin();
+  for (Particles::size_type j = 0; j < particles.size(); ++j) {
+    if (j == i) {
+      continue;
+    }
+    E += -G * particles[j].mass / particles[j].d(particles[i]);
   }
-  return E;
-}
-
-/** calculate the potential energy of particles configuration */
-double potential_energy(const Particles& particles) {
-  double E = 0;
-  // TODO
   return E;
 }
 
