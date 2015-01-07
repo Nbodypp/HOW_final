@@ -16,8 +16,7 @@ int RungeKutta4::step(double t, Particles &p) {
   k1 = p;
   force_.update_acceleration(k1);
   k2 = k1;
-  for (auto &ptmp : k2)
-  {
+  for (auto &ptmp : k2) {
     ptmp.x  += ptmp.vx * dt_ * 0.5;
     ptmp.y  += ptmp.vy * dt_ * 0.5;
     ptmp.z  += ptmp.vz * dt_ * 0.5;
@@ -27,8 +26,7 @@ int RungeKutta4::step(double t, Particles &p) {
   }
   force_.update_acceleration(k2);
   k3 = k2;
-  for (auto &ptmp : k3)
-  {
+  for (auto &ptmp : k3) {
     ptmp.x  += ptmp.vx * dt_ * 0.5;
     ptmp.y  += ptmp.vy * dt_ * 0.5;
     ptmp.z  += ptmp.vz * dt_ * 0.5;
@@ -38,8 +36,7 @@ int RungeKutta4::step(double t, Particles &p) {
   }
   force_.update_acceleration(k3);
   k4 = k3;
-  for (auto &ptmp : k4)
-  {
+  for (auto &ptmp : k4) {
     ptmp.x  += ptmp.vx * dt_;
     ptmp.y  += ptmp.vy * dt_;
     ptmp.z  += ptmp.vz * dt_;
@@ -49,8 +46,7 @@ int RungeKutta4::step(double t, Particles &p) {
   }
   force_.update_acceleration(k4);
   // update finally
-  for (Particles::size_type i = 0; i < p.size(); ++i)
-  {
+  for (Particles::size_type i = 0; i < p.size(); ++i) {
     p[i].x  = p[i].x  + (k1[i].vx + 2*k2[i].vx + 2*k3[i].vx + k4[i].vx)/6.*dt_;
     p[i].y  = p[i].y  + (k1[i].vy + 2*k2[i].vy + 2*k3[i].vy + k4[i].vy)/6.*dt_;
     p[i].z  = p[i].z  + (k1[i].vz + 2*k2[i].vz + 2*k3[i].vz + k4[i].vz)/6.*dt_;

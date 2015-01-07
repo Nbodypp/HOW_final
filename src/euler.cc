@@ -22,7 +22,6 @@ int Euler::step(double t, Particles &particles) {
     p.vx += dt_ * p.ax;
     p.vy += dt_ * p.ay;
     p.vz += dt_ * p.az;
-
   }
   return 0;
 }

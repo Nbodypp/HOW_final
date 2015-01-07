@@ -15,7 +15,7 @@
  */
 class Euler_SI : public Integrator {
  public:
-  Euler_SI(double dt,const Force &force);
+  Euler_SI(double dt, const Force &force);
   ~Euler_SI();
   int step(double t, Particles& particles);
  private:

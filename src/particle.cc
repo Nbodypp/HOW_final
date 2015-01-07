@@ -9,21 +9,19 @@
  * @param radius radius of the particle
  */
 Particle::Particle(double mass, double radius)
- : mass(mass),
-   radius(radius),
-   x(0), y(0), z(0),
-   vx(0), vy(0), vz(0),
-   ax(0), ay(0), az(0)
-{
-}
+  : mass(mass),
+    radius(radius),
+    x(0), y(0), z(0),
+    vx(0), vy(0), vz(0),
+    ax(0), ay(0), az(0)
+{}
 
 
 Particle::~Particle()
 {}
 
 /** distance between particles */
-double Particle::d(const Particle& p) const
-{
+double Particle::d(const Particle& p) const {
   return sqrt(pow((p.x-this->x), 2) +
               pow((p.y-this->y), 2) +
               pow((p.z-this->z), 2));
@@ -42,8 +40,7 @@ double Particle::Ekin() const {
 }
 
 /** print position, velocity, and acceleration of the particle */
-void Particle::print()
-{
+void Particle::print() {
   printf("%15.8e %15.8e %15.8e %15.8e %15.8e %15.8e %15.8e %15.8e %15.8e\n",
          this->x, this->y, this->z,
          this->vx, this->vy, this->vz,
@@ -52,8 +49,7 @@ void Particle::print()
 
 /** print position, velocity and acceleration of all particles */
 void print_particles(const Particles &particles, std::ostream &f) {
-  for (auto &p : particles)
-  {
+  for (auto &p : particles) {
     f << std::scientific;
     f << p.x << ' '
       << p.y << ' '
@@ -71,8 +67,7 @@ void print_particles(const Particles &particles, std::ostream &f) {
 /** save position, velocity of all particles */
 void save_particles(const Particles &particles, std::ofstream &f) {
   double buf[6];
-  for (auto &p : particles)
-  {
+  for (auto &p : particles) {
     buf[0] = p.x;
     buf[1] = p.y;
     buf[2] = p.z;
@@ -86,8 +81,7 @@ void save_particles(const Particles &particles, std::ofstream &f) {
 /** calculate the kinetic energy of the particle */
 double kinetic_energy(const Particles& particles) {
   double E = 0;
-  for (auto const &p : particles)
-  {
+  for (auto const &p : particles) {
     E += p.Ekin();
   }
   return E;

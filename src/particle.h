@@ -54,4 +54,4 @@ double kinetic_energy(const Particles &particles);
 double potential_energy(const Particles &particles);
 
 #endif  // PARTICLE_H_
-    
+

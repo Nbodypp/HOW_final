@@ -1,10 +1,10 @@
-#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+#include <iostream>
 #include <vector>
 #include <stdexcept>
 #include <string>
-#include "math.h"
 
 #include "SimpleIni.h"
 
@@ -38,8 +38,7 @@ void check_inputfile(CSimpleIniA &ini) {
     "mass", "radius", "x", "y", "z", "vx", "vy", "vz"};
   CSimpleIniA::TNamesDepend sections;
   ini.GetAllSections(sections);
-  for (auto i = sections.begin(); i != sections.end(); ++i)
-  {
+  for (auto i = sections.begin(); i != sections.end(); ++i) {
     // skip root section -- it's for settings
     if (strcmp(i->pItem, "") == 0) {
       continue;
@@ -61,8 +60,7 @@ void check_inputfile(CSimpleIniA &ini) {
   }
 }
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
   // verify input file
   if (argc != 2) {
     printf("USAGE: %s <inputfile>\n", argv[0]);
@@ -78,7 +76,7 @@ int main(int argc, char *argv[])
   }
 
   double tmpmass, tmpradius;
-  Particles particles;  //vector of pointers to Particle class instances
+  Particles particles;
 
   // get settings
   const double dt = atof(ini.GetValue("", "timestep"));
@@ -95,13 +93,12 @@ int main(int argc, char *argv[])
   // Setup particles
   CSimpleIniA::TNamesDepend sections;
   ini.GetAllSections(sections);
-  for (auto i = sections.begin(); i != sections.end(); ++i)
-  {
+  for (auto i = sections.begin(); i != sections.end(); ++i) {
     // skip root section -- it's for settings
     if (strcmp(i->pItem, "") == 0) {
       continue;
     }
-    std::cerr << "#Initializing " << i->pItem << std::endl; 
+    std::cerr << "#Initializing " << i->pItem << std::endl;
     tmpmass = atof(ini.GetValue(i->pItem, "mass"));
     tmpradius = atof(ini.GetValue(i->pItem, "radius"));
     particles.push_back(Particle(tmpmass, tmpradius));
@@ -112,7 +109,7 @@ int main(int argc, char *argv[])
     particles.back().vy = atof(ini.GetValue(i->pItem, "vy"));
     particles.back().vz = atof(ini.GetValue(i->pItem, "vz"));
   }
-  
+
   // Setup the force model
   std::cerr << "#Setting up a force model" << std::endl;
   Force force;
@@ -120,31 +117,25 @@ int main(int argc, char *argv[])
   // Setup the integrator
   std::cerr << "#Setting up an integrator" << std::endl;
   Integrator *integrator = NULL;
-  if (integrator_name.compare("euler") == 0)
-  {
+  if (integrator_name.compare("euler") == 0) {
     std::cerr << "#Setting up an euler integrator" << std::endl;
     integrator = new Euler(dt, force);
-  }
-  else if (integrator_name.compare("leapfrog") == 0)
-  {
+  } else if (integrator_name.compare("leapfrog") == 0) {
     std::cerr << "#Setting up a leapfrog integrator" << std::endl;
     integrator = new Leapfrog(dt, force);
-  }
-  else if (integrator_name.compare("rk4") == 0) {
+  } else if (integrator_name.compare("rk4") == 0) {
     std::cerr << "#Setting up a runge-kutta integrator" << std::endl;
     integrator = new RungeKutta4(dt, force);
   }
-  if (integrator == NULL)
-  {
+  if (integrator == NULL) {
     fprintf(stderr, "ERROR: integrator %s is not known\n",
-            integrator_name.c_str()); 
+            integrator_name.c_str());
   }
 
   std::cerr << "#Starting integration" << std::endl;
   double t = 0;
   print_particles(particles, std::cout);
-  for (t = 0; t < tmax; t+=dt)
-  {
+  for (t = 0; t < tmax; t+=dt) {
     integrator->step(t, particles);
     print_particles(particles, std::cout);    // TODO: print to a file
   }
@@ -152,5 +143,4 @@ int main(int argc, char *argv[])
   // Clean up
   delete integrator;
   return 0;
-
 }

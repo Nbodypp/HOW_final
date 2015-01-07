@@ -5,6 +5,7 @@
 
 #ifndef FORCE_H_
 #define FORCE_H_
+#include <vector>
 #include "particle.h"
 
 /**

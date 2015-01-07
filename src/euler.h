@@ -1,6 +1,5 @@
 /**
  * @file
- *
  * @brief Forward Euler integrator
  */
 
@@ -15,7 +14,7 @@
  */
 class Euler : public Integrator {
  public:
-  Euler(double dt,const Force &force);
+  Euler(double dt, const Force &force);
   ~Euler();
   int step(double t, Particles &particles);
  private:

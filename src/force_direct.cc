@@ -1,5 +1,5 @@
+#include <math.h>
 #include "force.h"
-#include "math.h"
 #include "constants.h"
 
 Force::Force() {
@@ -9,18 +9,14 @@ Force::~Force() {
 }
 
 /** update acceleration of all particles */
-void Force::update_acceleration(Particles &particles) const
-{
-  for (auto &p1 : particles)
-  {
+void Force::update_acceleration(Particles &particles) const {
+  for (auto &p1 : particles) {
     double r = 0.;
     double ax = 0.;
     double ay = 0.;
     double az = 0.;
-    for (auto &p2 : particles)
-    {
-      if (&p2 == &p1)
-      {
+    for (auto &p2 : particles) {
+      if (&p2 == &p1) {
         continue;
       }
       r = p1.d(p2);
@@ -33,8 +29,7 @@ void Force::update_acceleration(Particles &particles) const
     p1.az = G * az;
 
     // Now to add our non-gravitational forces
-    for (auto &f : forces_)
-    {
+    for (auto &f : forces_) {
       f(particles);
     }
   }
