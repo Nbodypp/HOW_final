@@ -15,6 +15,7 @@
  */
 class Particle {
  public:
+  Particle();
   Particle(double mass, double radius);
   ~Particle();
 

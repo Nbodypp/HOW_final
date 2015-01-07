@@ -3,6 +3,16 @@
 #include <math.h>
 #include <fstream>
 
+/** Default constructor
+ */
+Particle::Particle()
+  : mass(0),
+    radius(0),
+    x(0), y(0), z(0),
+    vx(0), vy(0), vz(0),
+    ax(0), ay(0), az(0)
+{}
+
 /**
  * Constructor
  * @param mass mass of the particle
