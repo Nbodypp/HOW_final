@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Title</title>
+    <title>Nbody++ - APC524</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <style type="text/css">
-      @import url(http://fonts.googleapis.com/css?family=Londrina+Solid);
       @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
       @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
       @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
@@ -12,8 +11,7 @@
 
       body, h2, h3 { font-family: 'Open Sans', sans-serif; }
       h1 {
-        /*font-family: 'Yanone Kaffeesatz';*/
-        font-family: "Gotham", 'Londrina Solid', cursive;
+        font-family: 'Yanone Kaffeesatz';
         font-weight: normal;
         text-shadow: 0px 0px 6px rgba(0,0,0,0.2);
       }
@@ -85,9 +83,15 @@ Cole Holcomb, Semyeong Oh, and Joshua Wallace
 
 ---
 
+# Program Design
+
+![](Nbodypp.png)
+
+---
+ 
 # Core Classes
 
-## Particle
+### Particle
 - has mass, radius, position, velocity, and acceleration
 - updated every time step
 
@@ -95,12 +99,32 @@ Cole Holcomb, Semyeong Oh, and Joshua Wallace
 typedef std::vector<Particle> Particles;
 ```
 
-## Force
+### Force
+```c++
+void update_acceleration(Particles &p) const;
+int add_force(ForceFunc force);
+```
 - updates acceleration
-- gravity + (user-specified) additional forces
+- gravity (direct sum) + (user-specified) additional forces
 
-## Integrator
+---
+
+# Core Classes
+
+### Integrator
+```c++
+Leapfrog::Leapfrog(double dt, const Force &force)
+int Leapfrog::step(double t, Particles& particles) 
+```
 - virtual class subclassed for different integrator scheme
+
+<br/>
+
+### Auxiliary functions / scripts
+
+- save Particle state to ascii/binary output
+- python scripts to visualize the results
+
 ---
 
 # Using input files
@@ -128,9 +152,14 @@ vz = 0
 
 ```
 
+```
+$make nbodypp
+$./nbodypp input.ini
+```
+
 ---
 
-# Solve your _own_ problem
+# Solving your own problem
 
 ```c++
 #include <iostream>
@@ -142,36 +171,30 @@ vz = 0
 // Set G in appropriate units
 double G = 1;    // G must be global
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
   Particles p ({
-    Particle (1., 0.),        // star
-    Particle (0., 0.)  // planet
+    Particle (1., 0.),
+    Particle (0., 0.)     // test particle
     });
 
-  // All particles are initialized with x, y, z, vx, vy, vz = 0
   // Specify initial conditions
   p[1].x = 1.;
   p[1].vy = 1.;
-```
 
+  double dt = 0.01;
+  double tmax = 1.;
+```
 ---
 
-# Solve your _own_ problem
-
+# Solving your own problem
 
 ```c++
-  double dt = 0.01;
-  double t = 0;
-  double tmax = 1.;
-
   Force force;
+  force.add_force(&dragforce);
   Leapfrog integrator (dt, force);
-  integrator.add_force(&dragforce);
 
   print_particles(p, std::cout);
-  for (t = 0; t < tmax; t+=dt)
-  {
+  for (double t = 0; t < tmax; t+=dt) {
     integrator.step(t, p);
     print_particles(p, std::cout);
   }
@@ -179,25 +202,16 @@ int main(int argc, char *argv[])
 }
 ```
 
-Addtional forces: drag force, ...
 
 ```c++
-void dragforce(Particles &particles);
-```
-
----
-
-# Files
-
-```
-|- src/
-|   *.cc, *.h, Makefile
-|   tests/
-|- scripts/
-|   plot2d.py
-|   vis.py
-|-examples/
-|- README.md
+void dragforce(Particles &particles) {
+  double k = 0.1;
+  for (auto &p : particles) {
+    p.ax -= k * p.vx;
+    p.ay -= k * p.vy;
+    p.az -= k * p.vz;
+  }
+}
 ```
 
 ---
@@ -211,6 +225,7 @@ void dragforce(Particles &particles);
 ---
 
 # Plans
+
 
     </textarea>
     <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
