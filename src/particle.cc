@@ -57,7 +57,11 @@ void Particle::print() {
          this->ax, this->ay, this->az);
 }
 
-/** print position, velocity and acceleration of all particles */
+/**
+ * print formatted position, velocity and acceleration of all particles
+ * @param particles particles
+ * @param f output stream
+ */
 void print_particles(const Particles &particles, std::ostream &f) {
   for (auto &p : particles) {
     f << std::scientific;
@@ -74,7 +78,11 @@ void print_particles(const Particles &particles, std::ostream &f) {
   f << '\n';
 }
 
-/** save position, velocity of all particles */
+/**
+ * save position, velocity of all particles in a binary format
+ * @param particles particles to save
+ * @param f binary output stream
+ */
 void save_particles(const Particles &particles, std::ofstream &f) {
   double buf[6];
   for (auto &p : particles) {
