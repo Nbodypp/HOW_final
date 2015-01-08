@@ -81,6 +81,20 @@ Cole Holcomb, Semyeong Oh, and Joshua Wallace
 
 # Introduction
 
+##N-body simulations
+- In astrophysics, used in orbital dynamics contexts
+- Calculate trajectories based on encoded physics and other objects present
+
+</br>
+
+##Orbital simulations
+- Can be used to calculate trajectories for anything from the eight
+planets around the sun...
+- ...to complicated star clusters with thousands of members...
+- ...to objects orbiting supermassive blackholes at close quarters.
+
+
+
 ---
 
 # Program Design
@@ -216,15 +230,24 @@ void dragforce(Particles &particles) {
 
 ---
 
-# Example 1:
+# Example 1: Solar System Inner Planets
+
+- 5 bodies: Sun, Mercury, Venus, Earth, and Mars
+- actual values for orbital velocity and Sun-planet distance used
 
 ---
 
-# Example 2:
+# Example 2: Resonant Scattering of a Binary-Single System
 
+- 3 equal mass bodies: a binary and a single perturber
+- After a complicated interaction, a binary-single system remains, but with different members
 ---
 
 # Plans
+
+- Implement adaptive timestepping
+- Further develop extra-Newtonian forces (such as General Relativity corrections)
+- Implement additional integratation methods
 
 
     </textarea>
