@@ -11,11 +11,9 @@ import numpy as np
 from vispy import app, scene
 from vispy.geometry import create_sphere
 
-# create mesh of a phere
-mdata = create_sphere(20, 40, .01)
 
 class NbodyCanvas(scene.SceneCanvas):
-    def __init__(self, data, istep=1, scale=1., colors='y'):
+    def __init__(self, data, istep=1, scale=1., colors='y', R=0.01):
         """
         Initialize an NbodyCanvas
 
@@ -36,6 +34,8 @@ class NbodyCanvas(scene.SceneCanvas):
         # Add a 3D axis to keep us oriented
         self.axis = scene.visuals.XYZAxis(parent=view.scene)
         self.timer = app.Timer(0.1, connect=self.on_timer, start=True)
+        # create mesh of a phere
+        self.mdata = create_sphere(20, 40, R)
         
         self.i = 0
         self.istep = istep
@@ -54,7 +54,7 @@ class NbodyCanvas(scene.SceneCanvas):
         for (x,y,z), c in\
             zip(np.vstack(np.split(self.d[self.i],self.np))[:,:3], colors):
             m = scene.visuals.Mesh(
-                meshdata=mdata, color=c, shading='smooth')
+                meshdata=self.mdata, color=c, shading='smooth')
             m.transform = scene.transforms.AffineTransform()
             m.transform.translate([x/self.scale, y/self.scale, z/self.scale])
             self.view.add(m)
@@ -92,13 +92,15 @@ def parse():
                         help='timestep interval', default=1.)
     parser.add_argument('-c', '--colors', type=str, nargs='+',
                         help='list of matplotlib colors', default='y')
+    parser.add_argument('-R', '--radius', type=float, default=0.01)
     return parser.parse_args()
 
 def visualize():
     """Read data from file and start vispy app """
     args = parse()
     d = np.loadtxt(args.filename)
-    c = NbodyCanvas(d, istep=args.istep, scale=args.scale, colors=args.colors)
+    c = NbodyCanvas(d, istep=args.istep, scale=args.scale, colors=args.colors,
+            R=args.radius)
     c.show()
 
 
