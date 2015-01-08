@@ -79,19 +79,20 @@ Cole Holcomb, Semyeong Oh, and Joshua Wallace
 
 ---
 
-# Introduction
+# Introduction: N-body Simulations
 
-##N-body simulations
-- In astrophysics, used in orbital dynamics contexts
-- Calculate trajectories based on encoded physics and other objects present
+## Why are they useful?
+- Many problems require solving trajectories of a discrete number of bodies
+- One such problem in astrophysics is solving orbital trajectories
 
 </br>
 
-##Orbital simulations
-- Can be used to calculate trajectories for anything from the eight
-planets around the sun...
-- ...to complicated star clusters with thousands of members...
-- ...to objects orbiting supermassive blackholes at close quarters.
+## What does our code do?
+- Using Newtonian gravity and any extra forces we can calculate
+orbital trajectories, such as:
+* The eight planets around the sun
+* Pluto and its five moons
+* Dense star clusters
 
 
 
@@ -246,8 +247,8 @@ void dragforce(Particles &particles) {
 # Plans
 
 - Implement adaptive timestepping
-- Further develop extra-Newtonian forces (such as General Relativity corrections)
-- Implement additional integratation methods
+- Develop extra-Newtonian forces further (such as General Relativity corrections)
+- Implement additional integration methods
 
 
     </textarea>
