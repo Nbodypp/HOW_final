@@ -32,9 +32,9 @@ int main(int argc, char *argv[])
   }
 
 
-  double dt = 0.00005;
+  double dt = 0.0001;
   double t = 0;
-  double tmax = 10.;
+  double tmax = 5.;
 
   Force force;
   Leapfrog integrator (dt, force);
