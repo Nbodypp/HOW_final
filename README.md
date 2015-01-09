@@ -4,9 +4,7 @@ Nbodypp
 [![Build Status](https://travis-ci.org/Nbodypp/HOW_final.svg?branch=master)](https://travis-ci.org/Nbodypp/HOW_final)
 
 - [ ] more examples - drag force (additional force example), ...
-- [ ] output tools
-  * write to a binary file
-  * for every some time step
+- [ ] output orbital elements
 - [ ] add and re-arrange tests
 - [ ] comparison with analytic solution
 
@@ -153,7 +151,9 @@ int main(int argc, char *argv[])
 }
 ```
 
-Check out examples/ for more.
+Boilerplate problem and makefile is in `examples/template` to get you started
+rightaway. 
+Also check out examples/ for more.
 
 For more details, see doxygen documentation.
 
