@@ -2,6 +2,9 @@
  * This file is for testing energy conservation of a test particle
  * under the Keplerican potential for different integrators.
  */
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
 #include <iostream>
 #include <memory>
 #include "constants.h"
@@ -12,7 +15,6 @@
 #include "euler_semi_implicit.h"
 #include "leapfrog.h"
 #include "runge-kutta.h"
-#include <math.h>
 
 double G = 1;
 
