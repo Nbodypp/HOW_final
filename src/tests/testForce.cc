@@ -15,7 +15,7 @@ void dragforce(Particles &p) {
 
 //Test to make sure that force_direct (which uses
 //the Newtonian gravitation formula) works.
-TEST_CASE("Force direct","[forcedirect]")
+TEST_CASE("Force direct","[force]")
 {
   Particles particles (2, Particle (2., 1.));
   particles[0].x = 2.0;
