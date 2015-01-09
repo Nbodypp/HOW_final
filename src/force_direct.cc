@@ -27,11 +27,11 @@ void Force::update_acceleration(Particles &particles) const {
     p1.ax = G * ax;
     p1.ay = G * ay;
     p1.az = G * az;
+  }
 
-    // Now to add our non-gravitational forces
-    for (auto &f : forces_) {
-      f(particles);
-    }
+  // Now to add non-gravitational forces
+  for (auto &f : forces_) {
+    f(particles);
   }
 }
 

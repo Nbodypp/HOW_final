@@ -4,6 +4,14 @@
 #include "force.h"
 #include <iostream>
 
+// simple drag force for testing additional force
+void dragforce(Particles &p) {
+  for (Particles::size_type i = 0; i < p.size(); ++i) {
+    p[i].ax -= p[i].vx;
+    p[i].ay -= p[i].vy;
+    p[i].az -= p[i].vz;
+  }
+};
 
 //Test to make sure that force_direct (which uses
 //the Newtonian gravitation formula) works.
@@ -57,24 +65,27 @@ TEST_CASE("Force direct","[forcedirect]")
   REQUIRE( (particles3[4].ax - -1.4236111111111) < 0.0000000001);
 }
 
-void dragforce(Particles &p) {
-  for (int i = 0; i < p.size(); ++i) {
-    p[i].ax -= p[i].vx;
-    p[i].ay -= p[i].vy;
-    p[i].az -= p[i].vz;
-  }
-};
-
-//See if add_force works
 TEST_CASE("Test if add_force works", "[force]") {
-  Particles particles;
-  particles.push_back(Particle (1, 1));
-  particles.back().vx = 3.;
-
+  // setup the force model
   Force force;
   force.add_force(&dragforce);
-  force.update_acceleration(particles);
-  REQUIRE(particles[0].ax == -3);
+
+  Particles particles;
+  particles.push_back(Particle(1, 1));
+  particles.back().vx = 3.;
+  SECTION("trivial single particle case") {
+    force.update_acceleration(particles);
+    REQUIRE(particles[0].ax == -3);
+  }
+  // add another particle to test gravity + dragforce
+  particles.push_back(Particle(1, 1));
+  particles.back().x = 1.;
+  particles.back().vx = 3.;
+  SECTION("gravity + additional force") {
+    force.update_acceleration(particles);
+    REQUIRE(particles[0].ax == -2);
+    REQUIRE(particles[1].ax == -4);
+  }
 }
 
 
