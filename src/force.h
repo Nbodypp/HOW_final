@@ -20,6 +20,7 @@ class Force {
   ~Force();
 
   void update_acceleration(Particles &p) const;
+  void put_gravity(Particles &p) const;
   int add_force(ForceFunc force);
  private:
   std::vector<ForceFunc> forces_;

@@ -10,6 +10,15 @@ Force::~Force() {
 
 /** update acceleration of all particles */
 void Force::update_acceleration(Particles &particles) const {
+  put_gravity(particles);
+  // Now to add non-gravitational forces
+  for (auto &f : forces_) {
+    f(particles);
+  }
+}
+
+/** update gravitational acceleration of all particles */
+void Force::put_gravity(Particles &particles) const {
   for (auto &p1 : particles) {
     double r = 0.;
     double ax = 0.;
@@ -28,14 +37,9 @@ void Force::update_acceleration(Particles &particles) const {
     p1.ay = G * ay;
     p1.az = G * az;
   }
-
-  // Now to add non-gravitational forces
-  for (auto &f : forces_) {
-    f(particles);
-  }
 }
 
-/** add a non-gravitational force*/
+/** add a non-gravitational force */
 int Force::add_force(ForceFunc force) {
   forces_.push_back(force);
   return 0;
