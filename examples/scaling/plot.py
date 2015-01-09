@@ -21,5 +21,8 @@ num_finer=np.arange(num[0],num[-1]+1)
 #model = np.multiply(n_factorial(num_finer),5.32e-35)
 #plt.plot(num_finer,model)
 
+model = 97./(80.*80.) * np.multiply(num_finer,num_finer)
+plt.plot(num_finer,model)
+
 plt.savefig("scaling.png")
 plt.close()
