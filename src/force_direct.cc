@@ -18,24 +18,35 @@ void Force::update_acceleration(Particles &particles) const {
 }
 
 /** update gravitational acceleration of all particles */
-void Force::put_gravity(Particles &particles) const {
-  for (auto &p1 : particles) {
-    double r = 0.;
-    double ax = 0.;
-    double ay = 0.;
-    double az = 0.;
-    for (auto &p2 : particles) {
-      if (&p2 == &p1) {
-        continue;
-      }
-      r = p1.d(p2);
-      ax += p2.mass * (p2.x - p1.x) / pow(r, 3);
-      ay += p2.mass * (p2.y - p1.y) / pow(r, 3);
-      az += p2.mass * (p2.z - p1.z) / pow(r, 3);
+void Force::put_gravity(Particles &p) const {
+  // reset acceleration
+  for (auto &a : p) {
+    a.ax = 0.;
+    a.ay = 0.;
+    a.az = 0.;
+  }
+  double r, ax, ay, az;  // temp variables
+  for (Particles::size_type i = 0; i < p.size(); i++) {
+    r = 0.;
+    ax = 0.;
+    ay = 0.;
+    az = 0.;
+    for (Particles::size_type j=i+1; j < p.size(); j++) {
+      r = p[i].d(p[j]);
+      ax = p[j].mass * (p[j].x - p[i].x) / pow(r, 3);
+      ay = p[j].mass * (p[j].y - p[i].y) / pow(r, 3);
+      az = p[j].mass * (p[j].z - p[i].z) / pow(r, 3);
+      // add to p_i and p_j with different signs
+      p[i].ax += ax;
+      p[i].ay += ay;
+      p[i].az += az;
+      p[j].ax -= ax;
+      p[j].ay -= ay;
+      p[j].az -= az;
     }
-    p1.ax = G * ax;
-    p1.ay = G * ay;
-    p1.az = G * az;
+    p[i].ax *= G;
+    p[i].ay *= G;
+    p[i].az *= G;
   }
 }
 
