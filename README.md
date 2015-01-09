@@ -152,7 +152,7 @@ int main(int argc, char *argv[])
 ```
 
 Boilerplate problem and makefile is in `examples/template` to get you started
-rightaway. 
+right away. 
 Also check out examples/ for more.
 
 For more details, see doxygen documentation.
