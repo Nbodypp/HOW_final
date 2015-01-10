@@ -18,7 +18,7 @@ through this document to use this code.
 
 ## Install
 
-Requirements: Nbody++ requires C++11 compiler such as clang version>=3.3 or gcc version>=4.6. To use python scripts in `scripts/`, you need [numpy](numpy.org) and [matplotlib](matplotlib.org) installed. For `vis.py` which renders OpenGL visualization, you need the development version of [vispy]9https://github.com/vispy/vispy).
+Requirements: Nbody++ requires C++11 compiler such as clang version>=3.3 or gcc version>=4.6. To use python scripts in `scripts/`, you need [numpy](numpy.org) and [matplotlib](matplotlib.org) installed. For `vis.py` which renders OpenGL visualization, you need the development version of [vispy](https://github.com/vispy/vispy).
 
 To obtain a copy of the code, clone this repository.
 ```
