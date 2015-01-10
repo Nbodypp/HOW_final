@@ -59,8 +59,12 @@ for i in range(n_part):
 
     
 plt.scatter(num_used_beforespeedup,np.divide(avg_t_beforespeedup,1e3),label="Before speedup",color='b')
+plt.errorbar(num_used_beforespeedup,np.divide(avg_t_beforespeedup,1e3),yerr=np.divide(avg_t_beforespeedup_sigma,1e3),color='b',linestyle="None",capsize=6)
 plt.scatter(num_used_index,np.divide(avg_t_index,1e3),label="Index",color='r')
+plt.errorbar(num_used_index,np.divide(avg_t_index,1e3),yerr=np.divide(avg_t_index_sigma,1e3),color='r',linestyle="None",capsize=6)
 plt.scatter(num_used_iterator,np.divide(avg_t_iterator,1e3),label="Iterator",color='g')
+plt.errorbar(num_used_iterator,np.divide(avg_t_iterator,1e3),yerr=np.divide(avg_t_iterator_sigma,1e3),color='g',linestyle="None",capsize=6)
+
 
 
 plt.xlabel("Number of particles")
@@ -68,5 +72,5 @@ plt.ylabel("Run time in seconds")
 
 plt.legend(loc='upper left')
 
-plt.savefig("scaling.comp.png")
+plt.savefig("scaling.comp.pdf")
 plt.close()
