@@ -3,14 +3,32 @@ Nbodypp
 
 [![Build Status](https://travis-ci.org/Nbodypp/HOW_final.svg?branch=master)](https://travis-ci.org/Nbodypp/HOW_final)
 
-- [ ] more examples - drag force (additional force example), ...
-- [ ] output orbital elements
-- [ ] add and re-arrange tests
-- [ ] comparison with analytic solution
+Nbodypp is a C++ toolkit for solving collisional N-body dynamics. Please read
+through this document to use this code.
+
+## Directory Structure
+
+- doc/ documentation
+- src/ source code
+  * vendor/ third-party libs
+    + simpleini/  [INI file parser](https://github.com/brofield/simpleini)
+    + catch.hpp   [catch](https://github.com/philsquared/Catch/) testing framework
+  * tests/  tests
+- examples/
+
+## Install
+
+Requirements: Nbody++ requires C++11 compiler such as clang version>=3.3 or gcc version>=4.6. To use python scripts in `scripts/`, you need [numpy](numpy.org) and [matplotlib](matplotlib.org) installed. For `vis.py` which renders OpenGL visualization, you need the development version of [vispy]9https://github.com/vispy/vispy).
+
+To obtain a copy of the code, clone this repository.
+```
+git clone https://github.com/Nbodypp/HOW_final
+```
+To build, change directory to `src/` and type `make`. This will compile nbodypp executable, and the doxygen documentation in `doc/`.
 
 ## Getting Started
 
-Nbodypp is a C++ library for solving collisional N-body systems. There are two use cases of the code.
+There are two use cases of the code.
 
 ### Using nbodypp
 If you simply want to solve for the orbits of N-body system under mutual gravity, you can write a configuration file in INI format. Settings are in root section, and each [section] defines the mass and the initial condition (x, y, z, vx, vy, vz) of a particle. You may choose an arbitrary mass, length, and time units by specifying the gravitational constant G. This is an example input file for the circular motion of a test particle (`mass = 0`).
@@ -52,6 +70,7 @@ to stdout in the format [x, y, z, vx, vy, vz] * Nparticles for each time step
 in a line. 
 
 ### Defining your own problem
+
 You can also define your own problem using the library in C++. The same problem above can be solved with the following code.
 
 ```c++
@@ -65,9 +84,10 @@ double G = 1;    // G must be global
 
 int main(int argc, char *argv[])
 {
+  // Particles is an STL vector of `Particle`s
   Particles p ({
     Particle (1., 0.),        // star
-    Particle (0., 0.)  // planet
+    Particle (0., 0.)         // planet
     });
   
   // All particles are initialized with x, y, z, vx, vy, vz = 0
@@ -109,34 +129,15 @@ circular : $(addprefix ../../src/, particle.o force_direct.o leapfrog.o) circula
 clean:
 	-rm -rf *.o circular
 ```
-
-- You may generate the initial condition using a function. `Particles` is
-  a typedef of a STL vector of `Particle`s, thus you can use any of its usual
-  constructor.
-
-```c++
-void init_cond(Particles &particles) {
-  // assign initial conditions here
-}
-
-int main(int argc, char *argv[])
-{
-  Particles p (50, Particle(0, 0));  // vector of 50 Particles
-  init_cond(p);
-
-  ...
-}
-
-```
-
 - You can also add non-gravitational forces by writing functions that changes
-  ax, ay, az of particles, and adding them to Force class.
+  ax, ay, az of particles, and adding them to Force class. These functions should take `Particles&` and return void. For example, to add a drag force in the opposite direction of particles' velocity,
 
 ```c++
 void dragforce(Particles &particles) {
   for (auto &p : particles) {
     p.ax -= p.vx
-    ...
+    p.ay -= p.vy
+    p.az -= p.vz
   }
 }
 
@@ -151,23 +152,19 @@ int main(int argc, char *argv[])
 }
 ```
 
-Boilerplate problem and makefile is in `examples/template` to get you started
-right away. 
+Copy and modify the examples/template` which contains boilerplate problem and makefile to write your own.
+
 Also check out examples/ for more.
 
-For more details, see doxygen documentation.
+## Examples
 
-## Directory Structure
+- solarsystem : inner planets of the Solar system
+- resoscatter : binary-single interaction
+- dragforce : 
 
-- doc/ documentation
-- src/ source code
-  * vendor/ third-party libs
-    + simpleini/  [INI file parser](https://github.com/brofield/simpleini)
-    + catch.hpp   [catch](https://github.com/philsquared/Catch/) testing framework
-  * tests/  tests
-- examples/
+TODO: complete example description
 
 ## Documentation
 
+For more details of each classes and functions, see doxygen documentation.
 You need [doxygen](http://www.stack.nl/~dimitri/doxygen/) to generate documentation. In the `src`, do `make doc`, and documentation files will be generated in `doc`.
-
