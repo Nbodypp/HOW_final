@@ -12,18 +12,5 @@ all: resoscatter
 resoscatter: $(deps) resoscatter.o
 	$(CXX) $(CFLAGS) -o $@ $^
 
-%.energy.dat : resoscatter
-	./resoscatter $* energy > $*.energy.dat
-
-%.orbit.dat : kepler
-	./kepler $* orbit > $*.orbit.dat
-
-testenergy: $(addsuffix .energy.dat, euler eulersi leapfrog rk4)
-
-testorbit: $(addsuffix .orbit.dat, euler eulersi leapfrog rk4)
-
-test: testenergy testorbit
-	./makeplots.py *.dat
-
 clean:
 	-rm -rf *.o resoscatter *.dat
