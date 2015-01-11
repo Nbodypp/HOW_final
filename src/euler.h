@@ -1,5 +1,5 @@
 /**
- * @file
+ * @file euler.h
  * @brief Forward Euler integrator
  */
 
@@ -10,7 +10,7 @@
 #include "force.h"
 
 /**
- * @brief Forward Euler integrator
+ * Forward Euler integrator.
  */
 class Euler : public Integrator {
  public:
@@ -23,3 +23,4 @@ class Euler : public Integrator {
 };
 
 #endif  // EULER_H_
+

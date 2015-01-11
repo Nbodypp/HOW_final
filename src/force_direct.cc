@@ -2,13 +2,21 @@
 #include "force.h"
 #include "constants.h"
 
+/** Constructor */
 Force::Force() {
 }
 
+/** Destructor */
 Force::~Force() {
 }
 
-/** update acceleration of all particles */
+/**
+ * Update acceleration of all particles.
+ * When called, ax, ay, az values of all particles are updated including any
+ * non-gravitational force that may have been added.
+ * @param particles Particles
+ * @see add_force
+ */
 void Force::update_acceleration(Particles &particles) const {
   put_gravity(particles);
   // Now to add non-gravitational forces
@@ -50,7 +58,10 @@ void Force::put_gravity(Particles &p) const {
   }
 }
 
-/** add a non-gravitational force */
+/**
+ * Add a non-gravitational force function.
+ * @see ForceFunc
+ */
 int Force::add_force(ForceFunc force) {
   forces_.push_back(force);
   return 0;

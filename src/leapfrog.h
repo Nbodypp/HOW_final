@@ -1,8 +1,6 @@
 /**
- * @file
- *
- * @brief Leapfrog integrator class
- * Longer description goes here
+ * @file leapfrog.h
+ * @brief Leapfrog integrator
  */
 
 #ifndef LEAPFROG_H_
@@ -11,6 +9,9 @@
 #include "integrator.h"
 #include "force.h"
 
+/**
+ * Leapfrog second order integrator.
+ */
 class Leapfrog : public Integrator {
  public:
   Leapfrog(double dt, const Force &force);

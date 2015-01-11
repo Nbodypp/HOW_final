@@ -1,3 +1,8 @@
+/*
+ * This file is for the nbodypp executable which takes an input file and runs
+ * the simulation as specified. See the README.md for details.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>

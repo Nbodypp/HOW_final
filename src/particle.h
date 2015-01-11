@@ -1,7 +1,10 @@
 /**
- * @file
+ * @file particle.h
+ * @brief Particle class and related functions
  *
- * @brief Particle class
+ * This file contains Particle class, Particles typedef, and related functions
+ * that calculates quantities from particles' state or outputs particles' state
+ * for further analysis.
  */
 
 #ifndef PARTICLE_H_
@@ -12,6 +15,12 @@
 
 /**
  * @brief Particle class for each body.
+ * Particle class represents each particle in the simulation. Zero-mass
+ * particles are test particles that exerts no force on any other particles.
+ * Radius is only relevant when collision is checked. When first instantiated,
+ * the initial conditions of position (x, y, z), and velocity (vx, vy, vz)
+ * should be specified.
+ * @see Particles
  */
 class Particle {
  public:
@@ -19,7 +28,7 @@ class Particle {
   Particle(double mass, double radius);
   ~Particle();
 
-  double mass;  /**< mass of the particle */
+  double mass;    /**< mass of the particle */
   double radius;  /**< radius of the particle */
 
   double x;  /**< position x */

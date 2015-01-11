@@ -1,8 +1,14 @@
+/**
+ * @file euler.cc
+ * @brief Forward Euler integrator
+ */
+
 #include "euler.h"
 
 /**
+ * Constructor.
  * @param dt timestep
- * @param foce Force model
+ * @param force Force model
  */
 Euler::Euler(double dt, const Force &force)
   : dt_(dt),
@@ -12,7 +18,9 @@ Euler::Euler(double dt, const Force &force)
 Euler::~Euler() {
 }
 
-/** Step particles' position and velocity */
+/**
+ * Inegrate particles' position and velocity for one time step.
+ */
 int Euler::step(double t, Particles &particles) {
   force_.update_acceleration(particles);
   for (auto &p : particles) {

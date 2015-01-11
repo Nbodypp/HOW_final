@@ -1,8 +1,16 @@
+/**
+ * @file integrator.h
+ * @brief Abstract Integrator class
+ */
+
 #ifndef INTEGRATOR_H_
 #define INTEGRATOR_H_
 
 #include "particle.h"
 
+/**
+ * Abstract integrator class.
+ */
 class Integrator {
  public:
   virtual ~Integrator() {}

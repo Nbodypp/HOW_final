@@ -1,5 +1,15 @@
+/**
+ * @file leapfrog.cc
+ * @brief Forward Euler integrator
+ */
+
 #include "leapfrog.h"
 
+/**
+ * Constructor.
+ * @param dt timestep
+ * @param force Force model
+ */
 Leapfrog::Leapfrog(double dt, const Force &force)
   : dt_(dt),
     force_(force) {
@@ -8,6 +18,9 @@ Leapfrog::Leapfrog(double dt, const Force &force)
 Leapfrog::~Leapfrog() {
 }
 
+/**
+ * Inegrate particles' position and velocity for one time step.
+ */
 int Leapfrog::step(double t, Particles& particles) {
 
   force_.update_acceleration(particles);

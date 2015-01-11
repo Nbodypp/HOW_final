@@ -1,5 +1,5 @@
 /**
- * @file
+ * @file force.h
  * @brief Force class
  */
 
@@ -10,10 +10,16 @@
 
 /**
  * @typedef ForceFunc
- * @brief function that adds non-gravitational forces
+ * @brief function that adds non-gravitational forces to Particles
  */
 typedef void (*ForceFunc)(Particles&);
 
+/**
+ * @brief Force class to set up force model.
+ * This class sets up force model for the problem. Gravity is included by
+ * default, and additional forces may be added.
+ * @see ForceFunc
+ */
 class Force {
  public:
   Force();
