@@ -28,15 +28,15 @@ class NbodyCanvas(scene.SceneCanvas):
         """
         scene.SceneCanvas.__init__(self, keys='interactive')
         view = self.central_widget.add_view()
-        view.set_camera('turntable', mode='perspective', up='z', distance=1.0,
-                azimuth=30., elevation=60.)
+        view.set_camera('turntable', mode='ortho', up='z', distance=1.0,
+                        azimuth=30., elevation=60.)
         self.view = view
         # Add a 3D axis to keep us oriented
         self.axis = scene.visuals.XYZAxis(parent=view.scene)
         self.timer = app.Timer(0.1, connect=self.on_timer, start=True)
         # create mesh of a phere
         self.mdata = create_sphere(20, 40, R)
-        
+
         self.i = 0
         self.istep = istep
         self.scale = scale
@@ -51,7 +51,7 @@ class NbodyCanvas(scene.SceneCanvas):
         else:
             assert len(colors) == self.np, "invalid number of colors"
         # add particles for the first time
-        for (x,y,z), c in\
+        for (x, y, z), c in\
             zip(np.vstack(np.split(self.d[self.i],self.np))[:,:3], colors):
             m = scene.visuals.Mesh(
                 meshdata=self.mdata, color=c, shading='smooth')
@@ -59,7 +59,7 @@ class NbodyCanvas(scene.SceneCanvas):
             m.transform.translate([x/self.scale, y/self.scale, z/self.scale])
             self.view.add(m)
             self.meshes.append(m)
-   
+
     def on_key_press(self, event):
         if event.text == ' ':
             if self.timer.running:
@@ -70,13 +70,14 @@ class NbodyCanvas(scene.SceneCanvas):
             self.close()
 
     def on_timer(self, event):
-        coords_old = np.vstack(np.split(self.d[self.i],self.np))[:,:3]
-        coords_new = np.vstack(np.split(self.d[(self.i+self.istep) % self.nt],self.np))[:,:3]
+        coords_old = np.vstack(np.split(self.d[self.i], self.np))[:, :3]
+        coords_new = np.vstack(np.split(self.d[(self.i+self.istep) % self.nt],
+                               self.np))[:, :3]
         coords_trans = coords_new - coords_old
         # move particles forward
         for mm, (dx, dy, dz) in zip(self.meshes, coords_trans):
             mm.transform.translate([dx/self.scale, dy/self.scale, dz/self.scale])
-        self.i+=self.istep
+        self.i += self.istep
         if self.i == self.nt:
             self.i = 0
         self.update()
@@ -95,12 +96,13 @@ def parse():
     parser.add_argument('-R', '--radius', type=float, default=0.01)
     return parser.parse_args()
 
+
 def visualize():
     """Read data from file and start vispy app """
     args = parse()
     d = np.loadtxt(args.filename)
     c = NbodyCanvas(d, istep=args.istep, scale=args.scale, colors=args.colors,
-            R=args.radius)
+                    R=args.radius)
     c.show()
 
 
