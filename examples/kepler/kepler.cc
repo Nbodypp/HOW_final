@@ -2,6 +2,9 @@
  * This file is for testing energy conservation of a test particle
  * under the Keplerican potential for different integrators.
  */
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
 #include <iostream>
 #include <memory>
 #include "constants.h"
@@ -12,7 +15,6 @@
 #include "euler_semi_implicit.h"
 #include "leapfrog.h"
 #include "runge-kutta.h"
-#include <math.h>
 
 double G = 1;
 
@@ -29,7 +31,7 @@ int main(int argc, char *argv[]) {
   p[1].x = 1.0;
   p[1].vy = 9.;
 
-  double dt = 0.001;
+  double dt = 0.01;
   double tmax = 100.;
   double t;
 
@@ -49,7 +51,6 @@ int main(int argc, char *argv[]) {
     exit(1);
   }
 
-  std::cout << std::scientific;
   if ( strcmp(argv[2], "orbit") == 0 ) {
     print_particles(p, std::cout);
     for (t = 0; t < tmax; t+=dt) {
@@ -59,11 +60,11 @@ int main(int argc, char *argv[]) {
   } else if ( strcmp(argv[2], "energy") == 0 ) {
     double E = 0.;
     E = 0.5*pow(p[1].v(), 2) + potential(p, 1);
-    std::cout << E << "\n";
+    printf("%20.15f\n", E);
     for (t = 0; t < tmax; t+=dt) {
       integrator->step(t, p);
       E = 0.5*pow(p[1].v(), 2) + potential(p, 1);
-      std::cout << E << "\n";
+      printf("%20.15f\n", E);
     }
   } else {
     printf("invalid output kind\n");
