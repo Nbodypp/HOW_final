@@ -57,8 +57,8 @@ int main(int argc, char *argv[]) {
   output_file.open(output_filename, std::ios::out);
   if(!(output_file.is_open())){
     fprintf(stderr,"Output file not open.  Now quitting...\n");
-    exit(1);
     delete integrator;
+    exit(1);
   }
   
   std::cout << std::scientific;
