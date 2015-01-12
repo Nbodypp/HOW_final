@@ -10,5 +10,7 @@ for integrator in "euler" "eulersi" "leapfrog" "rk4"
 do
 
     valgrind --tool=callgrind --dump-instr=yes --trace-jump=yes --dsymutil=yes --callgrind-out-file="callgrind.out."$integrator".dat" ./kepler $integrator orbit  > temp.$integrator.dat
+    valgrind --tool=callgrind --dump-instr=yes --trace-jump=yes --dsymutil=yes --callgrind-out-file="callgrind.out.printtofile."$integrator".dat" ./kepler.printtofile $integrator orbit  > temp.printtofile.$integrator.stdout.dat
+    valgrind --tool=callgrind --dump-instr=yes --trace-jump=yes --dsymutil=yes --callgrind-out-file="callgrind.out.lessprintout."$integrator".dat" ./kepler.lessprintout $integrator orbit  > temp.lessprintout.$integrator.dat
 
 done

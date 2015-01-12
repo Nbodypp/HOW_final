@@ -4,12 +4,18 @@ deps=$(addprefix ../../src/, particle.o force_direct.o\
 		   euler.o euler_semi_implicit.o leapfrog.o runge-kutta.o)
 .PHONY: all
 
-all: kepler
+all: kepler kepler.printtofile kepler.lessprintout
 
 %.o: %.cc
 	$(CXX) -c $(CFLAGS) -o $@ $^
 
 kepler: $(deps) kepler.o
+	$(CXX) $(CFLAGS) -o $@ $^
+
+kepler.printtofile: $(deps) kepler.printtofile.o
+	$(CXX) $(CFLAGS) -o $@ $^
+
+kepler.lessprintout: $(deps) kepler.lessprintout.o
 	$(CXX) $(CFLAGS) -o $@ $^
 
 %.energy.dat : kepler
@@ -26,4 +32,4 @@ test: testenergy testorbit
 	./makeplots.py *.dat
 
 clean:
-	-rm -rf *.o kepler *.dat
+	-rm -rf *.o kepler kepler.printtofile kepler.lessprintout
