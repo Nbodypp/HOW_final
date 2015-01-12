@@ -33,24 +33,24 @@ void Force::put_gravity(Particles &p) const {
     a.ay = 0.;
     a.az = 0.;
   }
-  double r, ax, ay, az;  // temp variables
+  double r, dax, day, daz;  // temp vdaridables
   for (auto i = p.begin(); i != p.end(); ++i) {
     r = 0.;
-    ax = 0.;
-    ay = 0.;
-    az = 0.;
+    dax = 0.;
+    day = 0.;
+    daz = 0.;
     for (auto j = i+1; j != p.end(); ++j) {
       r = i->d(*j);
-      ax = j->mass * (j->x - i->x) / pow(r, 3);
-      ay = j->mass * (j->y - i->y) / pow(r, 3);
-      az = j->mass * (j->z - i->z) / pow(r, 3);
+      dax = (j->x - i->x) / pow(r, 3);
+      day = (j->y - i->y) / pow(r, 3);
+      daz = (j->z - i->z) / pow(r, 3);
       // add to p_i and p_j with different signs
-      i->ax += ax;
-      i->ay += ay;
-      i->az += az;
-      j->ax -= ax;
-      j->ay -= ay;
-      j->az -= az;
+      i->ax += j->mass * dax;
+      i->ay += j->mass * day;
+      i->az += j->mass * daz;
+      j->ax -= i->mass * dax;
+      j->ay -= i->mass * day;
+      j->az -= i->mass * daz;
     }
     i->ax *= G;
     i->ay *= G;
