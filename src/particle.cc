@@ -51,6 +51,17 @@ double Particle::d(const Particle& p) const {
 }
 
 /**
+ * Calculate the relative velocity between two particles.
+ * @param p particle to calculate the velocity to
+ * @return the relative velocity between this and p
+ */
+double Particle::rv(const Particle& p) const {
+  return sqrt(pow((p.vx-this->vx), 2) +
+              pow((p.vy-this->vy), 2) +
+              pow((p.vz-this->vz), 2));
+}
+
+/**
  * Calculate the velocity of the particle.
  * @return velocity
  */

@@ -45,6 +45,7 @@ class Particle {
 
   void print();
   double d(const Particle &particle) const;
+  double rv(const Particle &particle) const;
   double v() const;
   double Ekin() const;
 
