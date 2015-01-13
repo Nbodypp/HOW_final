@@ -65,7 +65,10 @@ plt.errorbar(num_used_index,np.divide(avg_t_index,1e3),yerr=np.divide(avg_t_inde
 plt.scatter(num_used_iterator,np.divide(avg_t_iterator,1e3),label="Iterator",color='g')
 plt.errorbar(num_used_iterator,np.divide(avg_t_iterator,1e3),yerr=np.divide(avg_t_iterator_sigma,1e3),color='g',linestyle="None",capsize=6)
 
+#plt.xscale(u'log')
+#plt.yscale(u'log')
 
+#plt.xlim(left=0.95)
 
 plt.xlabel("Number of particles")
 plt.ylabel("Run time in seconds")
@@ -73,4 +76,7 @@ plt.ylabel("Run time in seconds")
 plt.legend(loc='upper left')
 
 plt.savefig("scaling.comp.pdf")
+
+print avg_t_iterator[-1]
+print avg_t_beforespeedup[-1]
 plt.close()
