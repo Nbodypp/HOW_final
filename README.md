@@ -19,6 +19,7 @@ through this document to use this code.
     problem source code is included.
   * dragforce : external velocity-dependent drag force slows down the particle
   * earthmoon : Sun's gravity is added in as an external force
+  * plummer : self-gravity of a plummer sphere
 
 ## Install
 
