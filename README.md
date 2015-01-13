@@ -166,6 +166,8 @@ Also check out examples/ for more.
 - solarsystem : inner planets of the Solar system
 - resoscatter : binary-single interaction
 - dragforce : 
+- earthmoon : Earth and Moon moving in a Sun-like gravitational potential.  Example and proof of concept of defining an external central potential. 'plot.py' will take the output from 'earthmoon' and plot the orbits of the Earth and Moon
+
 
 TODO: complete example description
 
