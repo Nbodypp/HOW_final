@@ -22,7 +22,7 @@ typedef void (*ForceFunc)(Particles&);
  */
 class Force {
  public:
-  Force();
+  Force(int gravity=1);
   ~Force();
 
   void update_acceleration(Particles &p) const;
@@ -30,6 +30,7 @@ class Force {
   int add_force(ForceFunc force);
  private:
   std::vector<ForceFunc> forces_;
+  int gravity_;
 };
 
 

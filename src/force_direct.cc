@@ -3,7 +3,8 @@
 #include "constants.h"
 
 /** Constructor */
-Force::Force() {
+Force::Force(int gravity/*=1*/)
+  : gravity_(gravity) {
 }
 
 /** Destructor */
@@ -18,7 +19,9 @@ Force::~Force() {
  * @see add_force
  */
 void Force::update_acceleration(Particles &particles) const {
-  put_gravity(particles);
+  if (gravity_) {
+    put_gravity(particles);
+  }
   // Now to add non-gravitational forces
   for (auto &f : forces_) {
     f(particles);
