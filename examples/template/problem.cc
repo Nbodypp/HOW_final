@@ -21,6 +21,10 @@ int main(int argc, char *argv[]) {
   p2.x = 1.;
   p2.vy = 1.;
 
+  Particles p;
+  p.push_back(p1);
+  p.push_back(p2);
+
   double dt = 0.01;
   double t = 0;
   double tmax = 10.;
