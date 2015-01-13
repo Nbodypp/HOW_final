@@ -1,7 +1,7 @@
 #include <iostream>
 #include "particle.h"
 #include "force.h"
-#include "leapfrog.h"
+#include "runge-kutta.sixthorder.h"
 #include "constants.h"
 
 double G = 1;
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
   double tmax = 100.;
 
   Force force;
-  Leapfrog integrator (dt, force);
+  RungeKutta6 integrator (dt, force);
   print_particles(p, std::cout);
   int counter = 0;
   for (t = 0; t < tmax; t+=dt) {

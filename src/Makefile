@@ -27,7 +27,7 @@ testEuler_SI: particle.o force_direct.o euler_semi_implicit.o $(testdir)/testEul
 testLeapfrog: particle.o force_direct.o leapfrog.o $(testdir)/testLeapfrog.o $(testdir)/test_main.o
 	$(CXX) $(CFLAGS) -o $(testdir)/testLeapfrog $^
 
-nbodypp: main.o particle.o  force_direct.o euler.o leapfrog.o runge-kutta.o
+nbodypp: main.o particle.o  force_direct.o euler.o leapfrog.o runge-kutta.o runge-kutta.sixthorder.o
 	$(CXX) $(CFLAGS) -o $@ $^
 
 clean:

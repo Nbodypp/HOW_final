@@ -1,5 +1,5 @@
 #include <math.h>
-#include "runge-kutta.sixth.h"
+#include "runge-kutta.sixthorder.h"
 
 
 /**

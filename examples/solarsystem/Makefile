@@ -8,7 +8,7 @@ all: solarsystem
 %.o: %.cc
 	$(CXX) -c $(CFLAGS) -o $@ $^
 
-solarsystem: $(addprefix ../../src/, particle.o force_direct.o leapfrog.o) solarsystem.o
+solarsystem: $(addprefix ../../src/, particle.o force_direct.o runge-kutta.sixthorder.o) solarsystem.o
 	$(CXX) $(CFLAGS) -o $@ $^
 
 clean:
