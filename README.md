@@ -15,6 +15,8 @@ through this document to use this code.
     + catch.hpp   [catch](https://github.com/philsquared/Catch/) testing framework
   * tests/  tests
 - examples/
+  * dragforce : external velocity-dependent drag force slows down the particle
+  * earthmoon : Sun's gravity is added in as an external force
 
 ## Install
 
