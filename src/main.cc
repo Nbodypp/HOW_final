@@ -19,6 +19,7 @@
 #include "euler.h"
 #include "leapfrog.h"
 #include "runge-kutta.h"
+#include "runge-kutta.sixthorder.h"
 #include "constants.h"
 
 double G;
@@ -129,8 +130,11 @@ int main(int argc, char *argv[]) {
     std::cerr << "#Setting up a leapfrog integrator" << std::endl;
     integrator = new Leapfrog(dt, force);
   } else if (integrator_name.compare("rk4") == 0) {
-    std::cerr << "#Setting up a runge-kutta integrator" << std::endl;
+    std::cerr << "#Setting up a runge-kutta 4th order integrator" << std::endl;
     integrator = new RungeKutta4(dt, force);
+ } else if (integrator_name.compare("rk6") == 0) {
+    std::cerr << "#Setting up a runge-kutta 6th order integrator" << std::endl;
+    integrator = new RungeKutta6(dt, force);
   }
   if (integrator == NULL) {
     fprintf(stderr, "ERROR: integrator %s is not known\n",
