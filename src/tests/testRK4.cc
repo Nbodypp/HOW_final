@@ -87,8 +87,7 @@ TEST_CASE("RungeKutta4 Single Particle", "[integrator]")
 
   //Run the integrator over many timesteps
   for (int i=0; i<maxint; ++i){
-    check = integrator->step(i*dt, particles);
-      REQUIRE(check == 0);
+    integrator->step(i*dt, particles);
   }
   //Now, check that the final values of the integration make sense
   
