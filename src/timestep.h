@@ -14,10 +14,13 @@
  */
 class Timestep {
  public:
-  Timestep();
+  Timestep(const double dt_fac);
   ~Timestep();
 
-  void update_timestep(Particles &p, Integrator &integrator ) const;
+  double update_timestep(Particles &p, Integrator &integrator) const;
+ 
+ private:
+  const double dt_fac;
 
 };
 

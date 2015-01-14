@@ -17,6 +17,7 @@ class Leapfrog : public Integrator {
   Leapfrog(double dt, const Force &force);
   ~Leapfrog();
   int step(double t, Particles &particles);
+  int update_dt(double dt);
  private:
   const double dt_;       // timestep
   const Force &force_;    // Force model

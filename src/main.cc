@@ -16,6 +16,7 @@
 #include "particle.h"
 #include "force.h"
 #include "integrator.h"
+#include "timestep.h"
 #include "euler.h"
 #include "leapfrog.h"
 #include "runge-kutta.h"
@@ -84,7 +85,7 @@ int main(int argc, char *argv[]) {
   Particles particles;
 
   // get settings
-  const double dt = atof(ini.GetValue("", "timestep"));
+  double dt = atof(ini.GetValue("", "timestep"));
   const double tmax = atof(ini.GetValue("", "tmax"));
   const std::string gravity = ini.GetValue("", "gravity");
   const std::string integrator_name = ini.GetValue("", "integrator");
@@ -137,12 +138,19 @@ int main(int argc, char *argv[]) {
             integrator_name.c_str());
   }
 
+  double dt_fac = .01;
+  // Setup the adaptive timestepping
+  Timestep *timestep = NULL;
+  timestep = new Timestep(dt_fac);
+
   std::cerr << "#Starting integration" << std::endl;
+  timestep->update_timestep(particles, *integrator);
   double t = 0;
   print_particles(particles, std::cout);
   for (t = 0; t < tmax; t+=dt) {
     integrator->step(t, particles);
     print_particles(particles, std::cout);    // TODO: print to a file
+    dt = timestep->update_timestep(particles, *integrator);
   }
 
   // Clean up

@@ -4,6 +4,7 @@
  */
 
 #include "euler.h"
+#include <iostream>
 
 /**
  * Constructor.
@@ -19,7 +20,7 @@ Euler::~Euler() {
 }
 
 /**
- * Inegrate particles' position and velocity for one time step.
+ * Integrate particles' position and velocity for one time step.
  */
 int Euler::step(double t, Particles &particles) {
   force_.update_acceleration(particles);
@@ -32,4 +33,13 @@ int Euler::step(double t, Particles &particles) {
     p.vz += dt_ * p.az;
   }
   return 0;
+}
+
+/**
+ * Modify the timestep
+ */
+int Euler::update_dt(double dt) {
+	dt_ = dt;
+	std::cout << "new timestep " << dt_ << std::endl;
+	return 0;
 }

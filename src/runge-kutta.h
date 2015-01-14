@@ -18,6 +18,7 @@ class RungeKutta4 : public Integrator {
   RungeKutta4(const double dt, const Force &force);
   ~RungeKutta4();
   int step(double t, Particles &p);
+  int update_dt(double dt);
  private:
   const double dt_;       // timestep
   const Force &force_;    // Force model
