@@ -4,7 +4,6 @@
  */
 
 #include "euler.h"
-#include <iostream>
 
 /**
  * Constructor.
@@ -40,6 +39,5 @@ int Euler::step(double t, Particles &particles) {
  */
 int Euler::update_dt(double dt) {
 	dt_ = dt;
-	std::cout << "new timestep " << dt_ << std::endl;
 	return 0;
 }

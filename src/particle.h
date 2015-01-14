@@ -59,7 +59,7 @@ class Particle {
  */
 typedef std::vector<Particle> Particles;
 
-void print_particles(const Particles &particles, std::ostream &f);
+void print_particles(const Particles &particles, const double t, const double dt, std::ostream &f);
 void save_particles(const Particles &particles, std::ofstream &f);
 double potential(const Particles &particles, const Particles::size_type i);
 

@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <fstream>
+#include <iostream>
 
 /**
  * Default constructor.
@@ -94,7 +95,7 @@ void Particle::print() {
  * @param particles particles
  * @param f output stream
  */
-void print_particles(const Particles &particles, std::ostream &f) {
+void print_particles(const Particles &particles, const double t, const double dt, std::ostream &f) {
   for (const auto &p : particles) {
     f << std::scientific;
     f << p.x << ' '
@@ -102,12 +103,9 @@ void print_particles(const Particles &particles, std::ostream &f) {
       << p.z << ' '
       << p.vx << ' '
       << p.vy << ' '
-      << p.vz << ' '
-      << p.ax << ' '
-      << p.ay << ' '
-      << p.az << ' ';
+      << p.vz << ' ';
   }
-  f << '\n';
+  f << t << ' ' << dt << '\n';
 }
 
 /**

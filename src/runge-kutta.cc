@@ -56,3 +56,12 @@ int RungeKutta4::step(double t, Particles &p) {
   }
   return 0;
 }
+
+/**
+ * Modify the timestep
+ */
+int RungeKutta4::update_dt(double dt) {
+        dt_ = dt;
+        return 0;
+}
+

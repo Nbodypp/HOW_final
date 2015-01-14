@@ -43,3 +43,11 @@ void Leapfrog::advance_vel(double dt, Particles& particles) {
     ptmp.vz += dt * ptmp.az;
   }
 }
+
+/**
+ * Modify the timestep
+ */
+int Leapfrog::update_dt(double dt) {
+        dt_ = dt;
+        return 0;
+}

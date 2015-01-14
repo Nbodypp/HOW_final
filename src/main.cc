@@ -138,22 +138,23 @@ int main(int argc, char *argv[]) {
             integrator_name.c_str());
   }
 
-  double dt_fac = .01;
+  double dt_fac = .001;
   // Setup the adaptive timestepping
   Timestep *timestep = NULL;
   timestep = new Timestep(dt_fac);
 
   std::cerr << "#Starting integration" << std::endl;
-  timestep->update_timestep(particles, *integrator);
+  dt = timestep->update_timestep(particles, *integrator);
   double t = 0;
-  print_particles(particles, std::cout);
+  print_particles(particles, t, dt, std::cout);
   for (t = 0; t < tmax; t+=dt) {
     integrator->step(t, particles);
-    print_particles(particles, std::cout);    // TODO: print to a file
     dt = timestep->update_timestep(particles, *integrator);
+    print_particles(particles, t+dt, dt, std::cout);    // TODO: print to a file
   }
 
   // Clean up
   delete integrator;
+  delete timestep;
   return 0;
 }

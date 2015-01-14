@@ -28,3 +28,11 @@ int Euler_SI::step(double t, Particles& particles) {
   }
   return 0;
 }
+
+/**
+ * Modify the timestep
+ */
+int Euler_SI::update_dt(double dt) {
+        dt_ = dt;
+        return 0;
+}

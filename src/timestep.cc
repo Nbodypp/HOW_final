@@ -1,4 +1,4 @@
-#include <math.h>
+#include <cmath>
 #include "timestep.h"
 #include "integrator.h"
 
@@ -23,13 +23,14 @@ double Timestep::update_timestep(Particles &p, Integrator &integrator) const {
   for (auto i = p.begin(); i != p.end(); ++i) {
     r = 0.;
     rv = 0.;
+    tempdrdv = INFINITY;
     for (auto j = i+1; j != p.end(); ++j) {
       r = i->d(*j);
       rv = i->rv(*j);
       if (rv==0) {
 	rv = 1.;
       }
-      tempdrdv = abs(r/rv);
+      tempdrdv = fabs(r/rv);
       if (tempdrdv < drdv) {
         drdv = tempdrdv;
       }
