@@ -8,18 +8,14 @@ through this document to use this code.
 
 ## Directory Structure
 
-- doc/ documentation
+- doc/ documentation is generated here
 - src/ source code
   * vendor/ third-party libs
     + simpleini/  [INI file parser](https://github.com/brofield/simpleini)
     + catch.hpp   [catch](https://github.com/philsquared/Catch/) testing framework
   * tests/  tests
 - examples/
-  * solarsystem : inner planets of the Solar system. Both input file and the
-    problem source code is included.
-  * dragforce : external velocity-dependent drag force slows down the particle
-  * earthmoon : Sun's gravity is added in as an external force
-  * plummer : self-gravity of a plummer sphere
+- scripts/
 
 ## Install
 
@@ -38,7 +34,7 @@ There are two use cases of the code.
 ### Using nbodypp
 If you simply want to solve for the orbits of N-body system under mutual gravity, you can write a configuration file in INI format. Settings are in root section, and each [section] defines the mass and the initial condition (x, y, z, vx, vy, vz) of a particle. You may choose an arbitrary mass, length, and time units by specifying the gravitational constant G. This is an example input file for the circular motion of a test particle (`mass = 0`).
 
-Radius is not yet implemented.
+Radius is only relevant when collision is checked.
 
 ```ini
 ; Nbodypp test input configuration file
@@ -161,15 +157,25 @@ Copy and modify the examples/template` which contains boilerplate problem and ma
 
 Also check out examples/ for more.
 
+### Visualizing the results
+
+We provide two simple python scripts to quickly visualize the orbits of the
+particles in `scripts/`.
+
+- plot2d.py simply plots particles' orbit on x-y, y-z, x-z plane using
+  matplotlib.
+- vis.py uses vispy, a high-level python interface to OpenGL, to render 3D
+  visualization of particles' movement. Note that you need the development
+  version of [vispy](https://github.com/vispy/vispy).
+
 ## Examples
 
-- solarsystem : inner planets of the Solar system
+- solarsystem : inner planets of the Solar system. Both input file and the
+    problem source code is included.
+- dragforce : external velocity-dependent drag force slows down the particle
+- earthmoon : Sun's gravity is added in as an external force
+- plummer : self-gravity of a plummer sphere
 - resoscatter : binary-single interaction
-- dragforce : 
-- earthmoon : Earth and Moon moving in a Sun-like gravitational potential.  Example and proof of concept of defining an external central potential. 'plot.py' will take the output from 'earthmoon' and plot the orbits of the Earth and Moon
-
-
-TODO: complete example description
 
 ## Documentation
 
