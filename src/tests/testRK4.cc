@@ -42,7 +42,9 @@ TEST_CASE("RungeKutta4 Single Particle", "[integrator]")
   double dt = 1.0;
   integrator = new RungeKutta4(dt, force);
 
-  REQUIRE_FALSE(integrator == NULL);
+  if (integrator == NULL){
+    FAIL("The integrator pointer is NULL");
+  }
 
   //Have integrator take first step, make sure it returns
   check = integrator->step(0, particles);
@@ -73,7 +75,10 @@ TEST_CASE("RungeKutta4 Single Particle", "[integrator]")
   //serious integration
   dt = 1.e-8;
   integrator = new RungeKutta4(dt, force);
-  REQUIRE_FALSE(integrator == NULL);
+  
+  if (integrator == NULL){
+    FAIL("The integrator pointer is NULL");
+  }
 
   particles[0].x = x0;
   particles[0].y = 0.;      
@@ -137,7 +142,9 @@ TEST_CASE("RungeKutta4 Many Particle", "[integrator]"){
   double dt = 1.e-8;
   integrator = new RungeKutta4(dt, force);
   
-  REQUIRE_FALSE(integrator == NULL);
+  if (integrator == NULL){
+    FAIL("The integrator pointer is NULL");
+  }
 
 
   //Check over several steps

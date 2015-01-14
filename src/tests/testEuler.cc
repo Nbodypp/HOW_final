@@ -42,7 +42,9 @@ TEST_CASE("Euler Single Particle", "[integrator]")
   double dt = 1.0;
   integrator = new Euler(dt, force);
 
-  REQUIRE_FALSE(integrator == NULL);
+  if (integrator == NULL){
+    FAIL("The integrator pointer is NULL");
+  }
 
   //Have integrator take first step, make sure it returns
   check = integrator->step(0, particles);
@@ -77,7 +79,10 @@ TEST_CASE("Euler Single Particle", "[integrator]")
   //serious integration
   dt = 1.e-8;
   integrator = new Euler(dt, force);
-  REQUIRE_FALSE(integrator == NULL);
+  
+  if (integrator == NULL){
+    FAIL("The integrator pointer is NULL");
+  }
 
   particles[0].x = x0;
   particles[0].y = 0.;      
@@ -141,7 +146,9 @@ TEST_CASE("Euler Many Particle", "[integrator]"){
   double dt = 1.e-8;
   integrator = new Euler(dt, force);
   
-  REQUIRE_FALSE(integrator == NULL);
+  if (integrator == NULL){
+    FAIL("The integrator pointer is NULL");
+  }
 
 
   //Check over several steps
