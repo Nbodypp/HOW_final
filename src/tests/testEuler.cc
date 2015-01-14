@@ -5,11 +5,11 @@
 #include "constants.h"
 #include "particle.h"
 #include "force.h"
-#include "leapfrog.h"
+#include "euler.h"
 #include "simpleintegration.h"
 
 
-TEST_CASE("Leapfrog Single Particle", "[integrator]")
+TEST_CASE("Euler Single Particle", "[integrator]")
 {
   //Create a particle
   Particles particles ({
@@ -40,7 +40,7 @@ TEST_CASE("Leapfrog Single Particle", "[integrator]")
   //Set up the Integrator object
   Integrator *integrator = NULL;
   double dt = 1.0;
-  integrator = new Leapfrog(dt, force);
+  integrator = new Euler(dt, force);
 
   REQUIRE_FALSE(integrator == NULL);
 
@@ -50,9 +50,9 @@ TEST_CASE("Leapfrog Single Particle", "[integrator]")
   REQUIRE(check == 0);
 
   //Check the values from this first step
-  REQUIRE(particles[0].x == x0 + dt*(.5*dt*ax_0));
-  REQUIRE(particles[0].y == dt*(vy0 + .5*dt*ay_0));
-  REQUIRE(particles[0].z == dt*(.5*dt*az_0));
+  REQUIRE(particles[0].x == x0);
+  REQUIRE(particles[0].y == vy0*dt);
+  REQUIRE(particles[0].z == 0.0);
   
   REQUIRE(particles[0].vx == ax_0*dt);
   REQUIRE(particles[0].vy == vy0 + 2.*dt);
@@ -60,7 +60,7 @@ TEST_CASE("Leapfrog Single Particle", "[integrator]")
 
   //Check velocity over several steps
   //Position is not checked here because large time
-  //step doesn't allow Leapfrog method to converge on analytic answer
+  //step doesn't allow Euler method to converge on analytic answer
   //very well
   for (int i=2; i<52; ++i){
     check = integrator->step(i*dt, particles);
@@ -76,7 +76,7 @@ TEST_CASE("Leapfrog Single Particle", "[integrator]")
   //Reset initial velocity and position of particle to test
   //serious integration
   dt = 1.e-8;
-  integrator = new Leapfrog(dt, force);
+  integrator = new Euler(dt, force);
   REQUIRE_FALSE(integrator == NULL);
 
   particles[0].x = x0;
@@ -113,7 +113,7 @@ TEST_CASE("Leapfrog Single Particle", "[integrator]")
 
 
 
-TEST_CASE("Leapfrog Many Particle", "[integrator]"){
+TEST_CASE("Euler Many Particle", "[integrator]"){
   Particles particles;
 
   const double basemass = 1.;
@@ -140,7 +140,7 @@ TEST_CASE("Leapfrog Many Particle", "[integrator]"){
   //Set up the Integrator object
   Integrator *integrator = NULL;
   double dt = 1.e-8;
-  integrator = new Leapfrog(dt, force);
+  integrator = new Euler(dt, force);
   
   REQUIRE_FALSE(integrator == NULL);
 
