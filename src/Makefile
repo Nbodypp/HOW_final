@@ -8,8 +8,7 @@ CFLAGS=-Wall -O3 -std=c++0x $(INCDIR) $(LIBDIR)
 
 .PHONY: clean
 
-all:
-	@echo Specify a target
+all: nbodypp doc
 
 doc: ../doc/Doxyfile
 	cd $(docdir) && \
