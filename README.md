@@ -177,6 +177,18 @@ particles in `scripts/`.
 - plummer : self-gravity of a plummer sphere
 - resoscatter : binary-single interaction
 
+## Testing
+
+To run tests, first make `runtest` in `src`, and do `runtest`.
+
+```sh
+make runtest
+./runtest
+```
+The tests are categorized by their tags: particle, force, integrator, and
+collision. To run the tests with certian tags, specify as `./runtest
+"[tag]"`. To list all tests, do `./runtest -l`.
+
 ## Documentation
 
 For more details of each classes and functions, see doxygen documentation.
