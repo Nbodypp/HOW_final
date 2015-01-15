@@ -153,7 +153,7 @@ int main(int argc, char *argv[])
 }
 ```
 
-Copy and modify the examples/template` which contains boilerplate problem and makefile to write your own.
+Copy and modify the `examples/template` which contains boilerplate problem and makefile to write your own.
 
 Also check out examples/ for more.
 
